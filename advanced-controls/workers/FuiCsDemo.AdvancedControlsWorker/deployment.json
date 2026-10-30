@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "semanticBuildId": "ad679f9608f3083559cbb519dc5f1a20bb43b48511598b7a2cb21070fee9ed15",
+  "deploymentKind": "raw",
+  "profile": "netwasm0.1",
+  "target": "wasm32",
+  "featureSet": "none",
+  "executionContract": "netwasm:browser/jsexport@1.0.0",
+  "versions": {
+    "sdk": "0.10.6",
+    "compiler": "0.10.6",
+    "runtime": "0.10.6",
+    "runtimeAbi": "netwasm.runtime.v1",
+    "hosting": "0.10.6",
+    "toolchain": "0.10.6"
+  },
+  "buildFingerprint": "546d8b745dd1bfda9b301b7b6b146032f4478781db9c794ec41bb55f37ae4507",
+  "runtimeFeatures": [],
+  "artifacts": [
+    {
+      "relativePath": "FuiCsDemo.AdvancedControlsWorker.exceptions.json",
+      "role": "exception-type-map",
+      "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
+      "sha256": "9864d2812c865beb8114e980a7f5123a659a38b6a5f72e6d3b7795f4540c9330",
+      "schemaVersion": 2
+    },
+    {
+      "relativePath": "FuiCsDemo.AdvancedControlsWorker.raw-adapter.mjs",
+      "role": "raw-adapter",
+      "mediaType": "text/javascript",
+      "sha256": "83593ca9d4314f422ab80ce030db9d38f5b605702e1f78c2c63c46e17dddb5c1",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "FuiCsDemo.AdvancedControlsWorker.wasm",
+      "role": "application",
+      "mediaType": "application/wasm",
+      "sha256": "ef433750613380d94c355b95f7b7fe3ad9d50ae3ffc2bcf76ff83233e22db33f",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "FuiCsDemo.AdvancedControlsWorker.worker.mjs",
+      "role": "worker-javascript",
+      "mediaType": "text/javascript",
+      "sha256": "020719d08b0250b9b98ce36a5d9f1cadc07dd1bb41bab2df3c35b03cf1f1c0c4",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "interop.json",
+      "role": "interop-manifest",
+      "mediaType": "application/json",
+      "sha256": "42cfeb6718b6c6cd14881ecfdd7b96a960be821b8e11fc65993ddfef53039508",
+      "schemaVersion": 1
+    },
+    {
+      "relativePath": "runtime-layout.json",
+      "role": "runtime-layout",
+      "mediaType": "application/json",
+      "sha256": "89eaf8170b4a872b709629e88e17b6fc188804e321c84f40d6ecf67607059bf7",
+      "schemaVersion": 1
+    }
+  ],
+  "requiredImportModules": [
+    "netwasm:runtime/reactor-host@1.0.0",
+    "wasi:cli/environment@0.2.11",
+    "wasi:cli/stderr@0.2.11",
+    "wasi:clocks/monotonic-clock@0.2.11",
+    "wasi:io/streams@0.2.11",
+    "wasi:random/random@0.2.11"
+  ],
+  "requiredImports": [
+    {
+      "interface": "netwasm:runtime/reactor-host@1.0.0",
+      "name": "cancel",
+      "parameters": [
+        "u32"
+      ],
+      "results": []
+    },
+    {
+      "interface": "netwasm:runtime/reactor-host@1.0.0",
+      "name": "watch",
+      "parameters": [
+        "own\u003Cwasi:io/poll@0.2.11#pollable\u003E",
+        "u32"
+      ],
+      "results": []
+    },
+    {
+      "interface": "wasi:cli/environment@0.2.11",
+      "name": "get-environment",
+      "parameters": [],
+      "results": [
+        "list\u003Ctuple\u003Cstring,string\u003E\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:cli/stderr@0.2.11",
+      "name": "get-stderr",
+      "parameters": [],
+      "results": [
+        "own\u003Cwasi:io/streams@0.2.11#output-stream\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:clocks/monotonic-clock@0.2.11",
+      "name": "now",
+      "parameters": [],
+      "results": [
+        "wasi:clocks/monotonic-clock@0.2.11#instant"
+      ]
+    },
+    {
+      "interface": "wasi:clocks/monotonic-clock@0.2.11",
+      "name": "subscribe-duration",
+      "parameters": [
+        "wasi:clocks/monotonic-clock@0.2.11#duration"
+      ],
+      "results": [
+        "own\u003Cwasi:io/poll@0.2.11#pollable\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:io/streams@0.2.11",
+      "name": "[method]output-stream.blocking-write-and-flush",
+      "parameters": [
+        "borrow\u003Cwasi:io/streams@0.2.11#output-stream\u003E",
+        "list\u003Cu8\u003E"
+      ],
+      "results": [
+        "result\u003Cunit,wasi:io/streams@0.2.11#stream-error\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:random/random@0.2.11",
+      "name": "get-random-u64",
+      "parameters": [],
+      "results": [
+        "u64"
+      ]
+    }
+  ],
+  "exports": []
+}

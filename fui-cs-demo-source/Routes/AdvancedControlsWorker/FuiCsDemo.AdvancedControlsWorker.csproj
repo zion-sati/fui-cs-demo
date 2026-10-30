@@ -1,0 +1,18 @@
+<Project Sdk="NetWasm.Sdk/0.10.6">
+
+  <!-- The advanced controls route's worker: a NetWasm JSExport worker that the route's worker sample starts. -->
+  <PropertyGroup>
+    <OutputType>JsModule</OutputType>
+    <NetWasmJavaScriptHosts>worker</NetWasmJavaScriptHosts>
+    <TargetFramework>netwasm0.1</TargetFramework>
+    <NetWasmOptimization>Oz</NetWasmOptimization>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>FuiCsDemo.AdvancedControlsWorker</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FuiCs.Worker" Version="0.3.0" />
+  </ItemGroup>
+
+</Project>

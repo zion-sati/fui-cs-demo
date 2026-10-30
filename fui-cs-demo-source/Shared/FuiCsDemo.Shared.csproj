@@ -1,0 +1,21 @@
+<Project Sdk="NetWasm.Sdk/0.10.6">
+
+  <!-- Code the routes share: the demo's design system, its route page, the route paths, and the demo shell's
+       JavaScript, which every route that references this project bundles. -->
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netwasm0.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>FuiCsDemo.Shared</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FuiCs" Version="0.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <NetWasmJavaScriptModule Include="Host/shell.mjs" Module="demo.shell" />
+  </ItemGroup>
+
+</Project>

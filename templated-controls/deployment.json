@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "semanticBuildId": "66dbcc4734eb13e10b6bf2c7df56cdc59579c60ea17cd94125c6631ae6a0324f",
+  "deploymentKind": "raw",
+  "profile": "netwasm0.1",
+  "target": "wasm32",
+  "featureSet": "none",
+  "executionContract": "netwasm:browser/jsexport@1.0.0",
+  "versions": {
+    "sdk": "0.10.6",
+    "compiler": "0.10.6",
+    "runtime": "0.10.6",
+    "runtimeAbi": "netwasm.runtime.v1",
+    "hosting": "0.10.6",
+    "toolchain": "0.10.6"
+  },
+  "buildFingerprint": "05080b94d66e6ff8f984c8b89c146bf673e6d6b5adf99ac741dcef09c687608b",
+  "runtimeFeatures": [],
+  "artifacts": [
+    {
+      "relativePath": "FuiCsDemo.TemplatedControls.exceptions.json",
+      "role": "exception-type-map",
+      "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
+      "sha256": "c8ad56f777e7ddb278e72fc683a5a595ff8ad9f612d4f19ef3e58a99b5c75a37",
+      "schemaVersion": 2
+    },
+    {
+      "relativePath": "FuiCsDemo.TemplatedControls.raw-adapter.mjs",
+      "role": "raw-adapter",
+      "mediaType": "text/javascript",
+      "sha256": "dcd6003a450c8d406750a70991d72efb806ac56379a696db4f8c2a46d11dd562",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "FuiCsDemo.TemplatedControls.wasm",
+      "role": "application",
+      "mediaType": "application/wasm",
+      "sha256": "8632105381ccc954279fe5d4becdab954754d6201153cd3398ece65b442a1933",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "interop.json",
+      "role": "interop-manifest",
+      "mediaType": "application/json",
+      "sha256": "c745380b77a6674e0548c0a098db4433ec0f46fa615adc3e12bfc6e1aff724e9",
+      "schemaVersion": 1
+    },
+    {
+      "relativePath": "netwasm.page.mjs",
+      "role": "hosting-javascript",
+      "mediaType": "text/javascript",
+      "sha256": "8f59d65a39c74fd35f6531177ee429753b65865e7ecc903e1b6783a605058fed",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "runtime-layout.json",
+      "role": "runtime-layout",
+      "mediaType": "application/json",
+      "sha256": "a1ea162d22dcaa2058baf001c7531cf7b9ba422f53d53971bbd08499daf694ae",
+      "schemaVersion": 1
+    }
+  ],
+  "requiredImportModules": [
+    "wasi:cli/environment@0.2.11",
+    "wasi:cli/stderr@0.2.11",
+    "wasi:io/streams@0.2.11",
+    "wasi:random/random@0.2.11"
+  ],
+  "requiredImports": [
+    {
+      "interface": "wasi:cli/environment@0.2.11",
+      "name": "get-environment",
+      "parameters": [],
+      "results": [
+        "list\u003Ctuple\u003Cstring,string\u003E\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:cli/stderr@0.2.11",
+      "name": "get-stderr",
+      "parameters": [],
+      "results": [
+        "own\u003Cwasi:io/streams@0.2.11#output-stream\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:io/streams@0.2.11",
+      "name": "[method]output-stream.blocking-write-and-flush",
+      "parameters": [
+        "borrow\u003Cwasi:io/streams@0.2.11#output-stream\u003E",
+        "list\u003Cu8\u003E"
+      ],
+      "results": [
+        "result\u003Cunit,wasi:io/streams@0.2.11#stream-error\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:random/random@0.2.11",
+      "name": "get-random-u64",
+      "parameters": [],
+      "results": [
+        "u64"
+      ]
+    }
+  ],
+  "exports": []
+}

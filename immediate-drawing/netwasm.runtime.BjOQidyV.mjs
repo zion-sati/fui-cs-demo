@@ -1,0 +1,1 @@
+let e=`/`;function t(t){e=t}function n(){return e}let r=[],i=[];function a(e){r=Object.entries(e)}function o(e){i=e}const s={getEnvironment(){return r},getArguments(){return i},initialCwd(){return`/`}};function c(e=Symbol){return e.dispose??e.for(`dispose`)}const l=c();export{n as a,s as i,o as n,t as o,a as r,l as t};

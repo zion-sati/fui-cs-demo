@@ -1,0 +1,37 @@
+<Project Sdk="NetWasm.Sdk/0.10.6">
+
+  <!-- The demo's dashboard route, and the site: dotnet publish -c Release -o site writes every route to site/,
+       each into the folder its path names. -->
+  <PropertyGroup>
+    <OutputType>JsModule</OutputType>
+    <NetWasmJavaScriptHosts>page</NetWasmJavaScriptHosts>
+    <TargetFramework>netwasm0.1</TargetFramework>
+    <NetWasmOptimization>Oz</NetWasmOptimization>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>FuiCsDemo</RootNamespace>
+    <FuiCsHomeTitle>Dashboard</FuiCsHomeTitle>
+    <!-- The other routes and the shared library are projects of their own. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);Routes/**;Shared/**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FuiCs" Version="0.3.0" />
+    <ProjectReference Include="Shared/FuiCsDemo.Shared.csproj" />
+  </ItemGroup>
+
+  <!-- The other routes: add a project under Routes/ and list it here, with the path in Shared/DemoRoutes.cs. -->
+  <ItemGroup>
+    <FuiCsRoute Include="Routes/AdvancedControls/FuiCsDemo.AdvancedControls.csproj" RoutePath="/advanced-controls/" Title="Advanced controls" />
+    <FuiCsRoute Include="Routes/TemplatedControls/FuiCsDemo.TemplatedControls.csproj" RoutePath="/templated-controls/" Title="Templated controls" />
+    <FuiCsRoute Include="Routes/ImmediateDrawing/FuiCsDemo.ImmediateDrawing.csproj" RoutePath="/immediate-drawing/" Title="Immediate-mode drawing" />
+  </ItemGroup>
+
+  <!-- The dashboard's textures, which it loads from the site's root, and DejaVu Sans, with its license, for the
+       advanced controls route's custom-font sample, beside the runtime's fonts. -->
+  <ItemGroup>
+    <Content Include="assets/demo-texture.png;assets/demo-secondary-texture.png" Link="%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="assets/fonts/*" Link="fonts/%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

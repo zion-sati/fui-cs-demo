@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 3,
+  "target": "wasm32",
+  "applicationStaticDataEnd": 29964,
+  "managedExecutableEntryPoint": null,
+  "runtimeFeatures": [
+    "finalization"
+  ],
+  "nativeImports": [],
+  "importModules": [
+    "fui_worker_host"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 3,
+  "target": "wasm32",
+  "applicationStaticDataEnd": 41920,
+  "managedExecutableEntryPoint": null,
+  "runtimeFeatures": [
+    "finalization"
+  ],
+  "nativeImports": [],
+  "importModules": [
+    "demo.shell",
+    "effindom_v2_ui",
+    "fui_fetch_host",
+    "fui_host",
+    "fui_host_buffers"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "version": "1.0",
+  "manifest_hash": "OkcNpT_Nb3DccS_dn2DMAdtdJP0uJVriC-YqlqK0ZVo",
+  "architectures": {
+    "wasm64-simd": {
+      "core": {
+        "js": "./runtime/effindom-core-v2.wasm64-simd.X0DyLRAi78zAbbe2HBU8_D2nGjvip9i9Z8O0pCDGWWA.js",
+        "js_integrity": "sha256-X0DyLRAi78zAbbe2HBU8/D2nGjvip9i9Z8O0pCDGWWA=",
+        "wasm": "./runtime/effindom-core-v2.wasm64-simd.MlYwKKARf8SpX1XQBk_E7gNBQ8fe8oAGLuxziRntE4I.wasm",
+        "wasm_integrity": "sha256-MlYwKKARf8SpX1XQBk/E7gNBQ8fe8oAGLuxziRntE4I="
+      },
+      "ui": {
+        "js": "./runtime/effindom-ui-v2.wasm64-simd.Lp4TryH-eQQ2LCglJu_R02yao7m-cTpecWnHbHatCNw.js",
+        "js_integrity": "sha256-Lp4TryH+eQQ2LCglJu/R02yao7m+cTpecWnHbHatCNw=",
+        "wasm": "./runtime/effindom-ui-v2.wasm64-simd.GbJ62Zp6fQjmU7UkyRSR6m734xKsSVClQyalR8IrIpo.wasm",
+        "wasm_integrity": "sha256-GbJ62Zp6fQjmU7UkyRSR6m734xKsSVClQyalR8IrIpo="
+      }
+    },
+    "wasm64": {
+      "core": {
+        "js": "./runtime/effindom-core-v2.wasm64.s0uKVHbbURgxEKf_ecF5j5f1MVOCFdHw1ibO_3XrxUg.js",
+        "js_integrity": "sha256-s0uKVHbbURgxEKf/ecF5j5f1MVOCFdHw1ibO/3XrxUg=",
+        "wasm": "./runtime/effindom-core-v2.wasm64.ZAsAOfMrH8Aj7qesE00IMmBb7Fy4f34s6pZjCeZeUxo.wasm",
+        "wasm_integrity": "sha256-ZAsAOfMrH8Aj7qesE00IMmBb7Fy4f34s6pZjCeZeUxo="
+      },
+      "ui": {
+        "js": "./runtime/effindom-ui-v2.wasm64.Lp4TryH-eQQ2LCglJu_R02yao7m-cTpecWnHbHatCNw.js",
+        "js_integrity": "sha256-Lp4TryH+eQQ2LCglJu/R02yao7m+cTpecWnHbHatCNw=",
+        "wasm": "./runtime/effindom-ui-v2.wasm64.E_szuHv0USjg7ABvPjI3bCQo74aj-S66dgczQoNvOxs.wasm",
+        "wasm_integrity": "sha256-E/szuHv0USjg7ABvPjI3bCQo74aj+S66dgczQoNvOxs="
+      }
+    },
+    "wasm32-simd": {
+      "core": {
+        "js": "./runtime/effindom-core-v2.wasm32-simd.AInR9VM9by2uordNyEe8bRCjHlMAT6PCydafDivbhs4.js",
+        "js_integrity": "sha256-AInR9VM9by2uordNyEe8bRCjHlMAT6PCydafDivbhs4=",
+        "wasm": "./runtime/effindom-core-v2.wasm32-simd.vJS3sRC7CY9RUcP0mshZ_d5jPMnYCmSsn4JSrPDUUX0.wasm",
+        "wasm_integrity": "sha256-vJS3sRC7CY9RUcP0mshZ/d5jPMnYCmSsn4JSrPDUUX0="
+      },
+      "ui": {
+        "js": "./runtime/effindom-ui-v2.wasm32-simd.h1369EzClzCy-M43UivfD8jZnBwe-jADnnw5alXJbdg.js",
+        "js_integrity": "sha256-h1369EzClzCy+M43UivfD8jZnBwe+jADnnw5alXJbdg=",
+        "wasm": "./runtime/effindom-ui-v2.wasm32-simd.qhwkvRcYiVlI5svTgGRvN_Z1ySeUeqDzr0h5YogrKHI.wasm",
+        "wasm_integrity": "sha256-qhwkvRcYiVlI5svTgGRvN/Z1ySeUeqDzr0h5YogrKHI="
+      }
+    },
+    "wasm32": {
+      "core": {
+        "js": "./runtime/effindom-core-v2.wasm32.MT6WBqB4Og1oa9R0BF98oXo86tUaoqMyXHoZdOWxPXE.js",
+        "js_integrity": "sha256-MT6WBqB4Og1oa9R0BF98oXo86tUaoqMyXHoZdOWxPXE=",
+        "wasm": "./runtime/effindom-core-v2.wasm32.0cBivWBXu_7PwkF2XBCbIOEhfusjFiCekGTMLgbUKjc.wasm",
+        "wasm_integrity": "sha256-0cBivWBXu/7PwkF2XBCbIOEhfusjFiCekGTMLgbUKjc="
+      },
+      "ui": {
+        "js": "./runtime/effindom-ui-v2.wasm32.h1369EzClzCy-M43UivfD8jZnBwe-jADnnw5alXJbdg.js",
+        "js_integrity": "sha256-h1369EzClzCy+M43UivfD8jZnBwe+jADnnw5alXJbdg=",
+        "wasm": "./runtime/effindom-ui-v2.wasm32.YSweCDLBHIicdzjAvLEIhen51p6iyk6YYvYbSnJ8Qyo.wasm",
+        "wasm_integrity": "sha256-YSweCDLBHIicdzjAvLEIhen51p6iyk6YYvYbSnJ8Qyo="
+      }
+    }
+  },
+  "assets": {
+    "icu": {
+      "url": "./runtime/icudt_minimal.8iFWnpjjgaLEmW5rxxWi3tG-cofQo8WW06mqtVccWg0.dat",
+      "integrity": "sha256-8iFWnpjjgaLEmW5rxxWi3tG+cofQo8WW06mqtVccWg0="
+    },
+    "fonts": {
+      "NotoColorEmoji.ttf": {
+        "url": "./fonts/NotoColorEmoji.ttf",
+        "integrity": "sha256-cqY1yz0vNSTFFiDN3kBrIXIE6KagbGoJb/jtS1/W4ns="
+      },
+      "NotoEmoji-Regular.ttf": {
+        "url": "./fonts/NotoEmoji-Regular.ttf",
+        "integrity": "sha256-1PWmh3LhLAZ491TmHQmkJmyPr0MScwH16B+YhCmV91s="
+      },
+      "NotoSans-Bold.ttf": {
+        "url": "./fonts/NotoSans-Bold.ttf",
+        "integrity": "sha256-yXbksbme3Ih3U3f8whaSykv6RrbWymUiv9pQWyj/nWo="
+      },
+      "NotoSans-BoldItalic.ttf": {
+        "url": "./fonts/NotoSans-BoldItalic.ttf",
+        "integrity": "sha256-bt9CJ+8PqEaspw6GoweATKRAF0GDD1s68PJVSr4rhGY="
+      },
+      "NotoSans-Italic.ttf": {
+        "url": "./fonts/NotoSans-Italic.ttf",
+        "integrity": "sha256-Ns/xRN8BMJ2rZIvqcbr/m7B0AmkUr+Y66syLyQtnoos="
+      },
+      "NotoSans-Regular.ttf": {
+        "url": "./fonts/NotoSans-Regular.ttf",
+        "integrity": "sha256-uFw47OqKfPs5wk45WkAHR0+lpPyGT27jMwnrSUjSMtU="
+      },
+      "NotoSansMono-Bold.ttf": {
+        "url": "./fonts/NotoSansMono-Bold.ttf",
+        "integrity": "sha256-Eg3sg2wYIzaGaDmQQB88DNQgA9UFqN2NuXjrpOamnF8="
+      },
+      "NotoSansMono-Regular.ttf": {
+        "url": "./fonts/NotoSansMono-Regular.ttf",
+        "integrity": "sha256-vFgRhWIRKkyHbidxGZsPNargcADl/h9KxtA0lpAJgfQ="
+      },
+      "NotoSansSymbols2-Regular.ttf": {
+        "url": "./fonts/NotoSansSymbols2-Regular.ttf",
+        "integrity": "sha256-YwhG1Sjb5MSYE3Ck0KlHWh/RSRoSm7QR+OFXzbXeE8Y="
+      }
+    }
+  },
+  "runtime_set_hash": "WhkBHLgc3FIfLkv_Q82cCn3OFdY2o2Q8RIPeV0N1dLw"
+}

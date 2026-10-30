@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "semanticBuildId": "4c0076875f5add42d18c97a866515b143d68cea174f287d18f31b98359d1e68f",
+  "deploymentKind": "raw",
+  "profile": "netwasm0.1",
+  "target": "wasm32",
+  "featureSet": "none",
+  "executionContract": "netwasm:browser/jsexport@1.0.0",
+  "versions": {
+    "sdk": "0.10.6",
+    "compiler": "0.10.6",
+    "runtime": "0.10.6",
+    "runtimeAbi": "netwasm.runtime.v1",
+    "hosting": "0.10.6",
+    "toolchain": "0.10.6"
+  },
+  "buildFingerprint": "95d207972680b18e5143f09e9df15f09cda35fd7407b07250709835c59bb3ac4",
+  "runtimeFeatures": [],
+  "artifacts": [
+    {
+      "relativePath": "FuiCsDemo.ImmediateDrawing.exceptions.json",
+      "role": "exception-type-map",
+      "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
+      "sha256": "c99967409901814d42b35bc0b7f2680ef7efafaca2ff6275d12fb1ddc2a6d004",
+      "schemaVersion": 2
+    },
+    {
+      "relativePath": "FuiCsDemo.ImmediateDrawing.raw-adapter.mjs",
+      "role": "raw-adapter",
+      "mediaType": "text/javascript",
+      "sha256": "f46425b6f26ad3bbfa07c08bb6787d825b0865ebe18a4810ae0e85bcb13fbc8a",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "FuiCsDemo.ImmediateDrawing.wasm",
+      "role": "application",
+      "mediaType": "application/wasm",
+      "sha256": "1fac7eb9336897e4d9d6e827a74d8545776fc7e944bb48026107d57dc0ee3860",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "interop.json",
+      "role": "interop-manifest",
+      "mediaType": "application/json",
+      "sha256": "9695b29f41390361f055d30dd8fdb31054c013f9849497b112ab4b78c2785519",
+      "schemaVersion": 1
+    },
+    {
+      "relativePath": "netwasm.page.mjs",
+      "role": "hosting-javascript",
+      "mediaType": "text/javascript",
+      "sha256": "1a7c0c87dbdce6a76cca3f5ae067f7cda58aea8ab0e58bc91c1226ef4d7c921d",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "runtime-layout.json",
+      "role": "runtime-layout",
+      "mediaType": "application/json",
+      "sha256": "f9839679ff5be4809a782e15e92d3be25c98883442aeac35d8be8818a3a4a444",
+      "schemaVersion": 1
+    }
+  ],
+  "requiredImportModules": [
+    "netwasm:runtime/reactor-host@1.0.0",
+    "wasi:cli/environment@0.2.11",
+    "wasi:cli/stderr@0.2.11",
+    "wasi:clocks/monotonic-clock@0.2.11",
+    "wasi:io/streams@0.2.11",
+    "wasi:random/random@0.2.11"
+  ],
+  "requiredImports": [
+    {
+      "interface": "netwasm:runtime/reactor-host@1.0.0",
+      "name": "cancel",
+      "parameters": [
+        "u32"
+      ],
+      "results": []
+    },
+    {
+      "interface": "netwasm:runtime/reactor-host@1.0.0",
+      "name": "watch",
+      "parameters": [
+        "own\u003Cwasi:io/poll@0.2.11#pollable\u003E",
+        "u32"
+      ],
+      "results": []
+    },
+    {
+      "interface": "wasi:cli/environment@0.2.11",
+      "name": "get-environment",
+      "parameters": [],
+      "results": [
+        "list\u003Ctuple\u003Cstring,string\u003E\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:cli/stderr@0.2.11",
+      "name": "get-stderr",
+      "parameters": [],
+      "results": [
+        "own\u003Cwasi:io/streams@0.2.11#output-stream\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:clocks/monotonic-clock@0.2.11",
+      "name": "subscribe-duration",
+      "parameters": [
+        "wasi:clocks/monotonic-clock@0.2.11#duration"
+      ],
+      "results": [
+        "own\u003Cwasi:io/poll@0.2.11#pollable\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:io/streams@0.2.11",
+      "name": "[method]output-stream.blocking-write-and-flush",
+      "parameters": [
+        "borrow\u003Cwasi:io/streams@0.2.11#output-stream\u003E",
+        "list\u003Cu8\u003E"
+      ],
+      "results": [
+        "result\u003Cunit,wasi:io/streams@0.2.11#stream-error\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:random/random@0.2.11",
+      "name": "get-random-u64",
+      "parameters": [],
+      "results": [
+        "u64"
+      ]
+    }
+  ],
+  "exports": []
+}

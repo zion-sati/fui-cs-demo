@@ -1,0 +1,1 @@
+const e=`[a-z0-9][a-z0-9-]*`,t=RegExp(`^(?:[a-z0-9][a-z0-9.-]*|${`\\[(?:method|static)\\]${e}\\.${e}`}|${`\\[(?:constructor|resource-drop|resource-dtor|export-resource-(?:new|rep|drop))\\]${e}`})$`,`u`);function n(e){return typeof e==`string`&&t.test(e)}export{n as t};

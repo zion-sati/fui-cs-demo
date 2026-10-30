@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "semanticBuildId": "6653c41ff9cc61866ea0aac64c8ece7e02b0844c3b5d93eca226d767a0480a00",
+  "deploymentKind": "raw",
+  "profile": "netwasm0.1",
+  "target": "wasm32",
+  "featureSet": "none",
+  "executionContract": "netwasm:browser/jsexport@1.0.0",
+  "versions": {
+    "sdk": "0.10.6",
+    "compiler": "0.10.6",
+    "runtime": "0.10.6",
+    "runtimeAbi": "netwasm.runtime.v1",
+    "hosting": "0.10.6",
+    "toolchain": "0.10.6"
+  },
+  "buildFingerprint": "c83b8608291340295c58a83ae6ae1218963300b1e83b5e79a6eea5e79b2ee825",
+  "runtimeFeatures": [],
+  "artifacts": [
+    {
+      "relativePath": "FuiCsDemo.exceptions.json",
+      "role": "exception-type-map",
+      "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
+      "sha256": "7286cffd823d1b15f9a9db40d661e8afa8c4199665d02e4f7663819efad5d1ba",
+      "schemaVersion": 2
+    },
+    {
+      "relativePath": "FuiCsDemo.raw-adapter.mjs",
+      "role": "raw-adapter",
+      "mediaType": "text/javascript",
+      "sha256": "83593ca9d4314f422ab80ce030db9d38f5b605702e1f78c2c63c46e17dddb5c1",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "FuiCsDemo.wasm",
+      "role": "application",
+      "mediaType": "application/wasm",
+      "sha256": "0b5002829e3474f57ad9b53f2432b432a4aa53de82789803fdf9a5cab46b23dc",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "interop.json",
+      "role": "interop-manifest",
+      "mediaType": "application/json",
+      "sha256": "8ec18384533b04945a6dce7deedb1a09b48143389e5d19bf7f65acc852117128",
+      "schemaVersion": 1
+    },
+    {
+      "relativePath": "netwasm.page.mjs",
+      "role": "hosting-javascript",
+      "mediaType": "text/javascript",
+      "sha256": "22afb575149965a0a62c412307b31cb358d386001b95b09c14d678b9a2647842",
+      "schemaVersion": null
+    },
+    {
+      "relativePath": "runtime-layout.json",
+      "role": "runtime-layout",
+      "mediaType": "application/json",
+      "sha256": "bf4a0bf958eb47a5ca16f0e4afa17e3906d36f0134ef4f8dcc89b15ea2d36369",
+      "schemaVersion": 1
+    }
+  ],
+  "requiredImportModules": [
+    "netwasm:runtime/reactor-host@1.0.0",
+    "wasi:cli/environment@0.2.11",
+    "wasi:cli/stderr@0.2.11",
+    "wasi:clocks/monotonic-clock@0.2.11",
+    "wasi:io/streams@0.2.11",
+    "wasi:random/random@0.2.11"
+  ],
+  "requiredImports": [
+    {
+      "interface": "netwasm:runtime/reactor-host@1.0.0",
+      "name": "cancel",
+      "parameters": [
+        "u32"
+      ],
+      "results": []
+    },
+    {
+      "interface": "netwasm:runtime/reactor-host@1.0.0",
+      "name": "watch",
+      "parameters": [
+        "own\u003Cwasi:io/poll@0.2.11#pollable\u003E",
+        "u32"
+      ],
+      "results": []
+    },
+    {
+      "interface": "wasi:cli/environment@0.2.11",
+      "name": "get-environment",
+      "parameters": [],
+      "results": [
+        "list\u003Ctuple\u003Cstring,string\u003E\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:cli/stderr@0.2.11",
+      "name": "get-stderr",
+      "parameters": [],
+      "results": [
+        "own\u003Cwasi:io/streams@0.2.11#output-stream\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:clocks/monotonic-clock@0.2.11",
+      "name": "now",
+      "parameters": [],
+      "results": [
+        "wasi:clocks/monotonic-clock@0.2.11#instant"
+      ]
+    },
+    {
+      "interface": "wasi:clocks/monotonic-clock@0.2.11",
+      "name": "subscribe-duration",
+      "parameters": [
+        "wasi:clocks/monotonic-clock@0.2.11#duration"
+      ],
+      "results": [
+        "own\u003Cwasi:io/poll@0.2.11#pollable\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:io/streams@0.2.11",
+      "name": "[method]output-stream.blocking-write-and-flush",
+      "parameters": [
+        "borrow\u003Cwasi:io/streams@0.2.11#output-stream\u003E",
+        "list\u003Cu8\u003E"
+      ],
+      "results": [
+        "result\u003Cunit,wasi:io/streams@0.2.11#stream-error\u003E"
+      ]
+    },
+    {
+      "interface": "wasi:random/random@0.2.11",
+      "name": "get-random-u64",
+      "parameters": [],
+      "results": [
+        "u64"
+      ]
+    }
+  ],
+  "exports": []
+}
