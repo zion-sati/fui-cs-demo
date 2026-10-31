@@ -18,31 +18,7 @@
   "imports": [
     {
       "module": "demo.shell",
-      "name": "accentColorHex",
-      "parameters": [],
-      "result": "string",
-      "call": "status",
-      "asyncReturn": null,
-      "resolveExport": null,
-      "rejectExport": null,
-      "cancelExport": null
-    },
-    {
-      "module": "demo.shell",
-      "name": "onClockTickChanged",
-      "parameters": [
-        "callback"
-      ],
-      "result": "subscription",
-      "call": "status",
-      "asyncReturn": null,
-      "resolveExport": null,
-      "rejectExport": null,
-      "cancelExport": null
-    },
-    {
-      "module": "demo.shell",
-      "name": "onDarkModeChanged",
+      "name": "onClockTick",
       "parameters": [
         "callback"
       ],
@@ -410,23 +386,6 @@
       ],
       "result": "void",
       "call": "direct",
-      "asyncReturn": null,
-      "resolveExport": null,
-      "rejectExport": null,
-      "cancelExport": null
-    },
-    {
-      "module": "effindom_v2_ui",
-      "name": "ui_replace_text_range",
-      "parameters": [
-        "u64",
-        "u32",
-        "u32",
-        "string",
-        "u32"
-      ],
-      "result": "void",
-      "call": "status",
       "asyncReturn": null,
       "resolveExport": null,
       "rejectExport": null,
@@ -1511,21 +1470,6 @@
     },
     {
       "module": "effindom_v2_ui",
-      "name": "ui_set_text_selection_range",
-      "parameters": [
-        "u64",
-        "u32",
-        "u32"
-      ],
-      "result": "void",
-      "call": "direct",
-      "asyncReturn": null,
-      "resolveExport": null,
-      "rejectExport": null,
-      "cancelExport": null
-    },
-    {
-      "module": "effindom_v2_ui",
       "name": "ui_set_text_style_runs",
       "parameters": [
         "u64",
@@ -1981,21 +1925,6 @@
     },
     {
       "module": "fui_host",
-      "name": "fui_register_text_input_metadata",
-      "parameters": [
-        "u64",
-        "bool",
-        "string"
-      ],
-      "result": "void",
-      "call": "status",
-      "asyncReturn": null,
-      "resolveExport": null,
-      "rejectExport": null,
-      "cancelExport": null
-    },
-    {
-      "module": "fui_host",
       "name": "fui_release_pointer_capture",
       "parameters": [],
       "result": "void",
@@ -2037,19 +1966,6 @@
       "parameters": [],
       "result": "void",
       "call": "direct",
-      "asyncReturn": null,
-      "resolveExport": null,
-      "rejectExport": null,
-      "cancelExport": null
-    },
-    {
-      "module": "fui_host",
-      "name": "fui_set_application_caption",
-      "parameters": [
-        "string"
-      ],
-      "result": "void",
-      "call": "status",
       "asyncReturn": null,
       "resolveExport": null,
       "rejectExport": null,
@@ -3173,21 +3089,11 @@
   "callbacks": [
     {
       "module": "demo.shell",
-      "importName": "onClockTickChanged",
+      "importName": "onClockTick",
       "parameterIndex": 0,
-      "exportName": "netwasm.callback.060000fe.0",
+      "exportName": "netwasm.callback.06000031.0",
       "parameters": [
         "i32"
-      ],
-      "result": "void"
-    },
-    {
-      "module": "demo.shell",
-      "importName": "onDarkModeChanged",
-      "parameterIndex": 0,
-      "exportName": "netwasm.callback.060000ff.0",
-      "parameters": [
-        "bool"
       ],
       "result": "void"
     }

@@ -3,13 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using FuiCs;
+using FuiCsDemo.Shared;
 
 namespace FuiCsDemo.ImmediateDrawing;
 
 /// <summary>
-/// The route's page: eight 300 px drawn cards in a wrapping row on a dark page. Once the page has loaded, a 25 ms tick
-/// sweeps a value from 0 to 100 and back and feeds the plots values derived from it, and the paint canvas's hint is
-/// rendered from rich text into its bitmap. Disposing the page stops the tick.
+/// The route's page: eight 300 px drawn cards in a wrapping row, in a panel under the route's heading. Once the page has
+/// loaded, a 25 ms tick sweeps a value from 0 to 100 and back and feeds the plots values derived from it, and the paint
+/// canvas's hint is rendered from rich text into its bitmap. Disposing the page stops the tick.
 /// </summary>
 internal sealed class DrawingPage : ManagedApplicationController
 {
@@ -22,37 +23,49 @@ internal sealed class DrawingPage : ManagedApplicationController
     private readonly DancingYarn yarn = new();
     private readonly PaintCanvas paintCanvas = new();
     private readonly CancellationTokenSource ticking = new();
-    private readonly Node root;
+    private readonly SelectionArea root;
     private float gaugeValue;
     private float gaugeDirection = 1.0f;
 
     public DrawingPage()
     {
-        // The cards wrap to the window's width and the page scrolls when they are taller than it.
-        root = new FlexBox()
-            .FlexDirection(FlexDirection.Column)
-            .FillSize()
-            .Background(DrawingColors.Page)
-            .Child(new ScrollBox().FillSize().Child(new FlexBox()
-                .FlexDirection(FlexDirection.Row)
-                .FlexWrap(FlexWrap.Wrap)
-                .FillWidth()
-                .Padding(24.0f, 24.0f, 24.0f, 24.0f)
-                .Child(Card(gauge))
-                .Child(Spacer())
-                .Child(Card(chart))
-                .Child(Spacer())
-                .Child(Card(wave))
-                .Child(Spacer())
-                .Child(Card(spark))
-                .Child(Spacer())
-                .Child(Card(pie))
-                .Child(Spacer())
-                .Child(Card(scatter))
-                .Child(Spacer())
-                .Child(Card(yarn))
-                .Child(Spacer())
-                .Child(Card(paintCanvas))));
+        Theme.UseSystem();
+        // The cards wrap to the panel's width.
+        var gallery = new FlexBox()
+            .FlexDirection(FlexDirection.Row)
+            .FlexWrap(FlexWrap.Wrap)
+            .FillWidth()
+            .Child(Card(gauge))
+            .Child(Card(chart))
+            .Child(Card(wave))
+            .Child(Card(spark))
+            .Child(Card(pie))
+            .Child(Card(scatter))
+            .Child(Card(yarn))
+            .Child(paintCanvas.Margin(0.0f, 0.0f, 0.0f, 16.0f));
+        var mainPanel = new Panel()
+            .Child(new DemoText("Immediate-mode drawing", DemoTextStyle.Heading2))
+            .Child(Spacing.Vertical(Spacing.TitleToSupportingGap))
+            .Child(new DemoText(
+                "Retained controls can host custom GPU-backed drawing without giving up layout, semantics, input, or theming.",
+                DemoTextStyle.BodySecondary))
+            .Child(Spacing.Vertical(Spacing.PageSectionGap))
+            .Child(new DemoScrollBox("immediate-drawing-content-scroll")
+                .FitWidthWhenCompact()
+                .FillSize()
+                .Child(new Panel()
+                    .Child(new DemoText("Live drawing surfaces", DemoTextStyle.Heading3))
+                    .Child(Spacing.Vertical(Spacing.HeadingToBodyGap))
+                    .Child(new DemoText(
+                        "Watch the charts update, pull the dancing yarn, and drag across the paint surface.",
+                        DemoTextStyle.BodySecondary))
+                    .Child(Spacing.Vertical(Spacing.PageSectionGap))
+                    .Child(gallery)
+                    .FillWidth()))
+            .FillSize();
+        var page = new PageShell("Immediate Drawing - FUI-CS Demo", DemoRoutes.ImmediateDrawing, mainPanel, "immediate-drawing-scroll");
+        root = new SelectionArea().FillSize().Child(page);
+        Application.OnUnmount(Theme.Bind(theme => root.Background = theme.Colors.Background).Dispose);
         FrameScheduler.OnLoaded(_ =>
         {
             RunTicks(ticking.Token);
@@ -78,9 +91,7 @@ internal sealed class DrawingPage : ManagedApplicationController
         base.Dispose();
     }
 
-    private static CustomDrawable Card(CustomDrawable drawable) => drawable.Margin(0.0f, 0.0f, 0.0f, 16.0f);
-
-    private static FlexBox Spacer() => new FlexBox().Width(16.0f).Height(1.0f);
+    private static CustomDrawable Card(CustomDrawable drawable) => drawable.Margin(0.0f, 0.0f, 16.0f, 16.0f);
 
     /// <summary>Ticks every 25 ms, each tick scheduled after the last, until the page is disposed.</summary>
     private async void RunTicks(CancellationToken cancellation)

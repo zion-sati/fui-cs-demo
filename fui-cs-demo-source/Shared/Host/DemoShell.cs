@@ -2,23 +2,16 @@ using System.Runtime.InteropServices.JavaScript;
 
 namespace FuiCsDemo.Shared;
 
-/// <summary>
-/// The demo shell's services and events, from <c>Host/shell.mjs</c>. An event's handler runs once straight away with
-/// the current value, then on every change until its subscription is disposed.
-/// </summary>
+/// <summary>The demo shell's clock, from <c>Host/shell.mjs</c>.</summary>
 public static class DemoShell
 {
-    /// <summary>The shell's accent as <c>#rrggbb</c>.</summary>
-    [JSImport("accentColorHex", "demo.shell")]
-    public static extern string AccentColorHex();
+    [JSImport("nowUnixSeconds", "demo.shell")]
+    public static extern int NowUnixSeconds();
 
-    [JSImport("isDarkMode", "demo.shell")]
-    public static extern bool IsDarkMode();
-
-    /// <summary>The shell clock's seconds since the site loaded.</summary>
-    [JSImport("onClockTickChanged", "demo.shell")]
-    public static extern JSSubscription OnClockTickChanged(Action<int> handler);
-
-    [JSImport("onDarkModeChanged", "demo.shell")]
-    public static extern JSSubscription OnDarkModeChanged(Action<bool> handler);
+    /// <summary>
+    /// Calls <paramref name="handler"/> with the time in Unix seconds straight away, then once a second until the
+    /// subscription is disposed.
+    /// </summary>
+    [JSImport("onClockTick", "demo.shell")]
+    public static extern JSSubscription OnClockTick(Action<int> handler);
 }

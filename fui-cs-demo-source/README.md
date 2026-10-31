@@ -20,22 +20,25 @@ runtime it carries, and the NetWasm SDK.
 
 ## What's here
 
-- `FuiCsDemo.csproj` and `Dashboard/`: the dashboard, the home route, at `/`.
-  Publishing this project publishes every route listed in its `FuiCsRoute`
-  items, each into the folder its path names.
-- `Routes/AdvancedControls/`: text areas, transitions, drag-and-drop reorder,
-  fetch, custom fonts and a worker sample, at `/advanced-controls/`. Its
-  worker, `Routes/AdvancedControlsWorker/`, runs a prime search in a Web Worker.
-- `Routes/TemplatedControls/`: design-system templates and per-control
-  overrides, at `/templated-controls/`.
+The same four routes as the FUI-AS and FUI-RS demos, in C#:
+
+- `FuiCsDemo.csproj` and `Home/`: the home route, at `/`: a 100,000-item virtual
+  list beside common controls, images, a nested scroll box and control
+  foundations. Publishing this project publishes every route listed in its
+  `FuiCsRoute` items, each into the folder its path names.
+- `Routes/TextFonts/`: a sign-in form, a text area reconfigured live, rich text
+  and app-authored DejaVu fonts, at `/text-fonts/`.
+- `Routes/Advanced/`: transitions, smooth scrolling, a prime search in a Web
+  Worker (`Routes/AdvancedWorker/`) driving a progress bar, real fetch requests
+  and drag-and-drop reordering, at `/advanced/`.
 - `Routes/ImmediateDrawing/`: charts, gauges and a paint canvas drawn each
   frame, at `/immediate-drawing/`.
-- `Shared/`: the demo's design system and route page, which every route builds
-  on, and the demo shell: `Host/shell.mjs`, the JavaScript module the routes
-  call through `[JSImport]` (`Host/DemoShell.cs`) for the shell clock, the
-  accent color and dark mode.
-- `assets/`: the dashboard's textures, and DejaVu Sans with its license, which
-  the advanced controls route loads as an app-authored font.
+- `Shared/`: the demo's design system, which every route builds on, including
+  its compact layout for phones and narrow windows, and the demo shell:
+  `Host/shell.mjs`, the JavaScript module the routes call through `[JSImport]`
+  (`Host/DemoShell.cs`) for the clock.
+- `assets/fonts/`: DejaVu Sans with its license, which the text and fonts route
+  loads as an app-authored font.
 
 ## Learn more
 

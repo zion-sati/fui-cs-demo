@@ -8,9 +8,5 @@ namespace FuiCsDemo.ImmediateDrawing;
 /// </summary>
 internal static class FuiProgram
 {
-    public static IApplication CreateApplication()
-    {
-        Application.SetCaption("EffinDOM FUI-CS Demo • Immediate Drawing");
-        return Application.CreateManaged(static () => new DrawingPage());
-    }
+    public static IApplication CreateApplication() => Application.CreateManaged(static () => new DrawingPage());
 }

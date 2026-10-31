@@ -1157,6 +1157,20 @@
     },
     {
       "module": "effindom_v2_ui",
+      "name": "ui_set_selection_area",
+      "parameters": [
+        "u64",
+        "bool"
+      ],
+      "result": "void",
+      "call": "direct",
+      "asyncReturn": null,
+      "resolveExport": null,
+      "rejectExport": null,
+      "cancelExport": null
+    },
+    {
+      "module": "effindom_v2_ui",
       "name": "ui_set_semantic_checked",
       "parameters": [
         "u64",
@@ -1755,6 +1769,17 @@
     },
     {
       "module": "fui_host",
+      "name": "fui_is_dark_mode",
+      "parameters": [],
+      "result": "bool",
+      "call": "direct",
+      "asyncReturn": null,
+      "resolveExport": null,
+      "rejectExport": null,
+      "cancelExport": null
+    },
+    {
+      "module": "fui_host",
       "name": "fui_load_svg",
       "parameters": [
         "u32",
@@ -1874,19 +1899,6 @@
       "parameters": [],
       "result": "void",
       "call": "direct",
-      "asyncReturn": null,
-      "resolveExport": null,
-      "rejectExport": null,
-      "cancelExport": null
-    },
-    {
-      "module": "fui_host",
-      "name": "fui_set_application_caption",
-      "parameters": [
-        "string"
-      ],
-      "result": "void",
-      "call": "status",
       "asyncReturn": null,
       "resolveExport": null,
       "rejectExport": null,

@@ -14,13 +14,17 @@ JS, HTML) is served directly from the repo root.
 
 ## What's here
 
-- **Dashboard**: layout, scrolling, a pooled list, input and pointer state,
-  media and the shell clock
-- **Advanced controls**: text areas, transitions, drag-and-drop reorder,
-  fetch, app-authored fonts, and a ProgressBar driven by a Web Worker
-- **Templated controls**: design-system templates and per-control overrides
-- **Immediate-mode drawing**: charts, gauges, waveforms and a paint canvas
-- **Dark & light themes**: following the system color scheme
+The same four routes as the FUI-AS and FUI-RS demos:
+
+- **Home**: a 100,000-item virtual list, common controls, images, a nested
+  scroll box and control foundations
+- **Text & fonts**: a sign-in form password managers recognize, a text area
+  reconfigured live, rich text and app-authored fonts
+- **Advanced**: transitions, smooth scrolling, a ProgressBar driven by a Web
+  Worker, real fetch requests and drag-and-drop reorder
+- **Immediate drawing**: charts, gauges, waveforms and a paint canvas
+- **Dark & light themes**: following the system color scheme, and a compact
+  layout on phones
 
 ## Repos
 

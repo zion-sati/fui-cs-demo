@@ -1,14 +1,14 @@
 using FuiCs;
-using FuiCsDemo.Dashboard;
+using FuiCsDemo.Home;
 
 namespace FuiCsDemo;
 
 /// <summary>
-/// The dashboard route: a pooled list beside a scrolling column of samples (layout and theme, input, focus scopes,
-/// common controls, media, nested scrolling and an input event inspector), following the shell's clock, accent and
-/// dark mode.
+/// The home route: a 100,000-item virtual list beside the basic controls showcase (common controls, images, a nested
+/// scroll box and control foundations), with the time since the page started from the shell's clock.
 /// </summary>
 internal static class FuiProgram
 {
-    public static IApplication CreateApplication() => Application.CreateManaged(static () => new DashboardController());
+    public static IApplication CreateApplication() =>
+        Application.CreateManaged(static () => new HomePage());
 }
