@@ -1142,6 +1142,20 @@
     },
     {
       "module": "effindom_v2_ui",
+      "name": "ui_set_scroll_wheel_latching",
+      "parameters": [
+        "u64",
+        "bool"
+      ],
+      "result": "void",
+      "call": "direct",
+      "asyncReturn": null,
+      "resolveExport": null,
+      "rejectExport": null,
+      "cancelExport": null
+    },
+    {
+      "module": "effindom_v2_ui",
       "name": "ui_set_selectable",
       "parameters": [
         "u64",

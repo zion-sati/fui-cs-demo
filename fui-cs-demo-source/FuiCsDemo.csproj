@@ -11,12 +11,14 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <RootNamespace>FuiCsDemo</RootNamespace>
     <FuiCsHomeTitle>Home</FuiCsHomeTitle>
+    <!-- The home page offers the debug dialog (Meta+Shift+F12), which a Release build keeps off unless asked. -->
+    <FuiCsDevToolsDomMirror>on-requested</FuiCsDevToolsDomMirror>
     <!-- The other routes and the shared library are projects of their own. -->
     <DefaultItemExcludes>$(DefaultItemExcludes);Routes/**;Shared/**</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FuiCs" Version="0.4.0" />
+    <PackageReference Include="FuiCs" Version="0.4.1" />
     <ProjectReference Include="Shared/FuiCsDemo.Shared.csproj" />
   </ItemGroup>
 

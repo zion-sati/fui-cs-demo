@@ -49,9 +49,9 @@ internal sealed class WorkerSection : IDisposable
         progressBar,
         Spacing.Vertical(12.0f),
         FlexBox.Row(
-                new DemoButton("Start prime worker").Width(170.0f).Height(60.0f).OnClick(_ => Start()),
+                new DemoButton("Start prime worker").MinWidth(170.0f).MinHeight(60.0f).OnClick(_ => Start()),
                 Spacing.Horizontal(12.0f),
-                new DemoButton("Cancel prime worker").Width(170.0f).Height(60.0f).OnClick(_ => active?.Cancel()))
+                new DemoButton("Cancel prime worker").MinWidth(170.0f).MinHeight(60.0f).OnClick(_ => active?.Cancel()))
             .FillWidth()
             .FlexWrap(FlexWrap.Wrap)
             .AlignItems(AlignItems.Stretch),

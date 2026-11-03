@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "semanticBuildId": "be7583ec6cc8d2a3b3d89d2908d84f4f40286ba4a66f45d3faa727cba477499a",
+  "semanticBuildId": "561a3de1bcc6d3697748a67990d4e82316eb688987e215104bd3e8c5e7c7dbab",
   "deploymentKind": "raw",
   "profile": "netwasm0.1",
   "target": "wasm32",
@@ -14,14 +14,14 @@
     "hosting": "0.10.7",
     "toolchain": "0.10.7"
   },
-  "buildFingerprint": "06b28851b3d259a9cdbb30ee93401a1acc49bbd74ec7dd1ba0867f4b7cdbe793",
+  "buildFingerprint": "5aee46478bb92d6c01e7c9f49bb2cf5fbdf8439b570ed7d43e38f8985372f718",
   "runtimeFeatures": [],
   "artifacts": [
     {
       "relativePath": "FuiCsDemo.Advanced.exceptions.json",
       "role": "exception-type-map",
       "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
-      "sha256": "8938e8c76dbc0dd4ef178fc850a8001c9fddff4e8c2dccf52395261f8c0e6a90",
+      "sha256": "4a6508c6b79f1f1c3129d840ed186c32d5a574c2291458e819a767d6f8beb770",
       "schemaVersion": 2
     },
     {
@@ -35,21 +35,21 @@
       "relativePath": "FuiCsDemo.Advanced.wasm",
       "role": "application",
       "mediaType": "application/wasm",
-      "sha256": "3d5da783a2dda0891d3b09d9cb7c00e5b86e4afd28196d4907036a00c8f1f95f",
+      "sha256": "c8287b852bcd37a1163d927ca0f4c9304b7b4b2e7e8c2ae20127d3dcbfc10509",
       "schemaVersion": null
     },
     {
       "relativePath": "interop.json",
       "role": "interop-manifest",
       "mediaType": "application/json",
-      "sha256": "5d2a0948d59eafc766756c76db9cf8549618d16d782e299a42eb963c3b863bcc",
+      "sha256": "d39ab54f54a5cc94466a781463c34f1b45ef612ce65e9883ab13bb63cdfb9077",
       "schemaVersion": 1
     },
     {
       "relativePath": "netwasm.page.mjs",
       "role": "hosting-javascript",
       "mediaType": "text/javascript",
-      "sha256": "43d93e5627ebf31f775c0590b8640f13ad97648c53ea1bc619d14ffceb31f086",
+      "sha256": "cafaee618fb8628aa19f65a6a9a8efebe8535e1fdecbd1fe023e84908ad3f221",
       "schemaVersion": null
     },
     {

@@ -81,9 +81,9 @@ internal sealed class AnimationSection
         previewCard,
         Spacing.Vertical(14.0f),
         FlexBox.Row(
-                new DemoButton("Set calm preview").Width(170.0f).Height(60.0f).OnClick(_ => SetEmphasized(false)),
+                new DemoButton("Set calm preview").MinWidth(170.0f).MinHeight(60.0f).OnClick(_ => SetEmphasized(false)),
                 Spacing.Horizontal(12.0f),
-                new DemoButton("Emphasize preview card", DemoButtonTone.Primary).Width(190.0f).Height(60.0f).OnClick(_ => SetEmphasized(true)))
+                new DemoButton("Emphasize preview card", DemoButtonTone.Primary).MinWidth(190.0f).MinHeight(60.0f).OnClick(_ => SetEmphasized(true)))
             .FillWidth()
             .FlexWrap(FlexWrap.Wrap)
             .AlignItems(AlignItems.Stretch),
@@ -119,8 +119,8 @@ internal sealed class AnimationSection
         Spacing.Vertical(Spacing.PageSectionGap),
     ];
 
-    private DemoButton ScrollButton(string label, float width, DemoButtonTone tone, float offsetY, string target) =>
-        new DemoButton(label, tone).Width(width).Height(60.0f).OnClick(_ =>
+    private DemoButton ScrollButton(string label, float minWidth, DemoButtonTone tone, float offsetY, string target) =>
+        new DemoButton(label, tone).MinWidth(minWidth).MinHeight(60.0f).OnClick(_ =>
         {
             scrollBox.ScrollToAnimated(0.0f, offsetY, ScrollTiming);
             scrollStatus.Text = "Scrolling to " + target + "...";

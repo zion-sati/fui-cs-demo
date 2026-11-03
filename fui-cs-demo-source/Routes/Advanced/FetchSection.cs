@@ -28,8 +28,8 @@ internal sealed class FetchSection : IDisposable
 
     public FetchSection()
     {
-        getButton = new DemoButton("GET /posts/1").Width(156.0f).NodeId("fetch-get").OnClick(_ => StartGet());
-        postButton = new DemoButton("POST /posts", DemoButtonTone.Primary).Width(156.0f).NodeId("fetch-post").OnClick(_ => StartPost());
+        getButton = new DemoButton("GET /posts/1").MinWidth(156.0f).NodeId("fetch-get").OnClick(_ => StartGet());
+        postButton = new DemoButton("POST /posts", DemoButtonTone.Primary).MinWidth(156.0f).NodeId("fetch-post").OnClick(_ => StartPost());
         var hint = new DemoText(
                 "This demo uses the shipped Fetch API against the live JSONPlaceholder service. The request is real and online; the current Fetch surface reports completion metadata (ok, status, statusText, resolved url) rather than response bodies.",
                 DemoTextStyle.BodySecondary)
