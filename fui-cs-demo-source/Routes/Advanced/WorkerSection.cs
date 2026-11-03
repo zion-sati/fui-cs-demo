@@ -15,10 +15,26 @@ internal sealed class WorkerSection : IDisposable
     /// <summary>The worker project's published folder, relative to the route's page.</summary>
     private const string WorkerPath = "workers/FuiCsDemo.AdvancedWorker";
 
-    private readonly ProgressBar progressBar = new ProgressBar(0.0f).Length(320.0f);
+    private readonly ProgressBar progressBar = new(0.0f);
     private readonly DemoText statusText = new("", DemoTextStyle.Caption);
     private readonly DemoText detailText = new("", DemoTextStyle.BodySecondary);
     private Worker? active;
+
+    public WorkerSection()
+    {
+        // In the compact layout the bar fills its panel.
+        Application.OnUnmount(Responsive.Subscribe(compact =>
+        {
+            if (compact)
+            {
+                progressBar.FillLength();
+            }
+            else
+            {
+                progressBar.Length(320.0f);
+            }
+        }).Dispose);
+    }
 
     public void Dispose()
     {

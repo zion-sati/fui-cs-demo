@@ -60,6 +60,9 @@ internal sealed class ReorderDemoSection : IDisposable
     private ITimer? autoScrollTimer;
     private readonly List<IDisposable> subscriptions = [];
 
+    /// <summary>The height of each row's card: taller in the compact layout, where a phone wraps their text.</summary>
+    public float RowBodyHeight { get; private set; } = ReorderDemoLogic.RowBodyHeightFor(Responsive.IsCompact);
+
     public ReorderDemoSection()
     {
         var scrollContent = FlexBox.Column().FillWidth();
@@ -100,7 +103,7 @@ internal sealed class ReorderDemoSection : IDisposable
                 .AlignItems(AlignItems.Center)
                 .Child(endDropText));
         scrollContent.Child(endDropZone);
-        scrollBox.ScrollContentSize(null, ReorderDemoLogic.ContentHeight(items.Count));
+        scrollBox.ScrollContentSize(null, ReorderDemoLogic.ContentHeight(items.Count, RowBodyHeight));
 
         previewGhost = new FlexBox()
             .PositionAbsolute()
@@ -135,6 +138,7 @@ internal sealed class ReorderDemoSection : IDisposable
             .FillWidth();
         sectionRoot = new FlexBox().NodeId("reorder-section").FillWidth().Child(body).Child(previewPortal);
 
+        subscriptions.Add(Responsive.Subscribe(ApplyRowBodyHeight));
         subscriptions.Add(scrollBox.ScrollState.OffsetY.Subscribe(_ => SyncViewportStatus()));
         subscriptions.Add(scrollBox.ScrollState.ViewportHeight.Subscribe(_ => SyncViewportStatus()));
         SyncAll();
@@ -273,7 +277,7 @@ internal sealed class ReorderDemoSection : IDisposable
             return;
         }
         var currentOffset = scrollBox.ScrollState.OffsetY.Value;
-        var nextOffset = ReorderDemoLogic.NextAutoScrollOffset(currentOffset, autoScrollDeltaY, items.Count, ViewportHeight());
+        var nextOffset = ReorderDemoLogic.NextAutoScrollOffset(currentOffset, autoScrollDeltaY, items.Count, ViewportHeight(), RowBodyHeight);
         if (nextOffset == currentOffset)
         {
             StopAutoScroll();
@@ -378,7 +382,23 @@ internal sealed class ReorderDemoSection : IDisposable
     }
 
     private ReorderVisibleRange VisibleRange() =>
-        ReorderDemoLogic.VisibleRange(items.Count, scrollBox.ScrollState.OffsetY.Value, ViewportHeight());
+        ReorderDemoLogic.VisibleRange(items.Count, scrollBox.ScrollState.OffsetY.Value, ViewportHeight(), RowBodyHeight);
+
+    private void ApplyRowBodyHeight(bool compact)
+    {
+        var height = ReorderDemoLogic.RowBodyHeightFor(compact);
+        if (height == RowBodyHeight)
+        {
+            return;
+        }
+        RowBodyHeight = height;
+        foreach (var row in rows)
+        {
+            row.Card.Height(height);
+        }
+        scrollBox.ScrollContentSize(null, ReorderDemoLogic.ContentHeight(items.Count, height));
+        SyncViewportStatus();
+    }
 
     private float ViewportHeight()
     {

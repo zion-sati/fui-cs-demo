@@ -1,4 +1,4 @@
-<Project Sdk="NetWasm.Sdk/0.10.6">
+<Project Sdk="NetWasm.Sdk/0.10.7">
 
   <!-- The immediate-mode drawing route: an application of its own, loaded at /immediate-drawing/. -->
   <PropertyGroup>
@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FuiCs" Version="0.3.0" />
+    <PackageReference Include="FuiCs" Version="0.4.0" />
     <ProjectReference Include="../../Shared/FuiCsDemo.Shared.csproj" />
   </ItemGroup>
 

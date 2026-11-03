@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
-  "semanticBuildId": "1428deba0a969ca8d8db4f58ec4791a2ec9e07985a8b6713793356c50bded110",
+  "semanticBuildId": "b838bd2d97bf1db18f6cb32dee358f50d98f89acbfeaade7076afa77d833ca33",
   "deploymentKind": "raw",
   "profile": "netwasm0.1",
   "target": "wasm32",
   "featureSet": "none",
   "executionContract": "netwasm:browser/jsexport@1.0.0",
   "versions": {
-    "sdk": "0.10.6",
-    "compiler": "0.10.6",
-    "runtime": "0.10.6",
+    "sdk": "0.10.7",
+    "compiler": "0.10.7",
+    "runtime": "0.10.7",
     "runtimeAbi": "netwasm.runtime.v1",
-    "hosting": "0.10.6",
-    "toolchain": "0.10.6"
+    "hosting": "0.10.7",
+    "toolchain": "0.10.7"
   },
-  "buildFingerprint": "948aaddc6542849b26338feb1275ec4c35f892611fa89b9cb1e5941688e6e83e",
+  "buildFingerprint": "d5959a0e69f6213fe0b819628299611e98e920fb81379d819552750e9d29417e",
   "runtimeFeatures": [],
   "artifacts": [
     {
       "relativePath": "FuiCsDemo.ImmediateDrawing.exceptions.json",
       "role": "exception-type-map",
       "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
-      "sha256": "bf740881743b34fe6cfafaeb1e8d29da22b0a26c81f24194cb8ebcb025fb37f8",
+      "sha256": "f175270482d1569b35dc7e4d7b41ed98c7c3521980ffa934edf68b8152667e93",
       "schemaVersion": 2
     },
     {
@@ -35,28 +35,28 @@
       "relativePath": "FuiCsDemo.ImmediateDrawing.wasm",
       "role": "application",
       "mediaType": "application/wasm",
-      "sha256": "31b1ff4f73a80a1a513c3b4aeb51fd94552c79a2fa08b0dceab0a1aa49c84589",
+      "sha256": "ad287425cddb5f003d74808cd7d89bde0c59fa10c500b2af7d9ee7029860d1a7",
       "schemaVersion": null
     },
     {
       "relativePath": "interop.json",
       "role": "interop-manifest",
       "mediaType": "application/json",
-      "sha256": "d0a2e2d88d5bb3899d3a5102da71b0f1958b1a583987a549423e0e6b79a363d0",
+      "sha256": "5a97dc9ea9be2d187e4bd5d1cb7124ecbb2f403d782cdaada7764363f9e8b374",
       "schemaVersion": 1
     },
     {
       "relativePath": "netwasm.page.mjs",
       "role": "hosting-javascript",
       "mediaType": "text/javascript",
-      "sha256": "1a7c0c87dbdce6a76cca3f5ae067f7cda58aea8ab0e58bc91c1226ef4d7c921d",
+      "sha256": "6239b8a359d9bb1d83ded309eb8155eb85c0204762049c26510febb83d09821d",
       "schemaVersion": null
     },
     {
       "relativePath": "runtime-layout.json",
       "role": "runtime-layout",
       "mediaType": "application/json",
-      "sha256": "7cdc63abb54bdb7c6d3650504186a55276a4b333603f5a233f682bfbfeefe5b3",
+      "sha256": "edc76316a828e96862ea5c2e70e8e3d4e772b4ee3364dc63fdf5a8b08d750d10",
       "schemaVersion": 1
     }
   ],

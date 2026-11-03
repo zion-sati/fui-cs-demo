@@ -21,7 +21,8 @@ internal static class ReorderDemoLogic
     public const string DragFormat = "application/x-effindom-reorder-item-id";
     public const float MarkerHeight = 8.0f;
     public const float RowBodyHeight = 72.0f;
-    public const float SlotHeight = MarkerHeight + RowBodyHeight;
+    // Taller in the compact layout, where a phone wraps a row's title and detail onto two lines each.
+    public const float CompactRowBodyHeight = 116.0f;
     public const float EndSlotHeight = 44.0f;
     public const float ViewportHeight = 248.0f;
     public const float AutoScrollEdgeZone = 48.0f;
@@ -53,17 +54,21 @@ internal static class ReorderDemoLogic
         return -1;
     }
 
-    public static float ContentHeight(int itemCount) => (Math.Max(itemCount, 0) * SlotHeight) + EndSlotHeight;
+    public static float RowBodyHeightFor(bool compact) => compact ? CompactRowBodyHeight : RowBodyHeight;
 
-    public static ReorderVisibleRange VisibleRange(int itemCount, float offsetY, float viewportHeight)
+    public static float ContentHeight(int itemCount, float rowBodyHeight) =>
+        (Math.Max(itemCount, 0) * (MarkerHeight + rowBodyHeight)) + EndSlotHeight;
+
+    public static ReorderVisibleRange VisibleRange(int itemCount, float offsetY, float viewportHeight, float rowBodyHeight)
     {
         if (itemCount <= 0)
         {
             return new ReorderVisibleRange(0, -1);
         }
-        var first = Math.Clamp((int)MathF.Floor(offsetY / SlotHeight), 0, itemCount - 1);
+        var slotHeight = MarkerHeight + rowBodyHeight;
+        var first = Math.Clamp((int)MathF.Floor(offsetY / slotHeight), 0, itemCount - 1);
         var effectiveViewportHeight = viewportHeight > 0.0f ? viewportHeight : ViewportHeight;
-        var last = (int)MathF.Floor((offsetY + effectiveViewportHeight - 1.0f) / SlotHeight);
+        var last = (int)MathF.Floor((offsetY + effectiveViewportHeight - 1.0f) / slotHeight);
         last = Math.Min(Math.Max(last, first), itemCount - 1);
         return new ReorderVisibleRange(first, last);
     }
@@ -102,8 +107,8 @@ internal static class ReorderDemoLogic
         return true;
     }
 
-    public static float MaxScrollOffset(int itemCount, float viewportHeight) =>
-        Math.Max(ContentHeight(itemCount) - viewportHeight, 0.0f);
+    public static float MaxScrollOffset(int itemCount, float viewportHeight, float rowBodyHeight) =>
+        Math.Max(ContentHeight(itemCount, rowBodyHeight) - viewportHeight, 0.0f);
 
     /// <summary>
     /// -1 to scroll up, 1 to scroll down, 0 to stay: an insertion at the first or last visible row scrolls when rows
@@ -159,8 +164,10 @@ internal static class ReorderDemoLogic
         return pointerY >= bottomZoneTop ? AutoScrollStep(pointerY - bottomZoneTop) : 0.0f;
     }
 
-    public static float NextAutoScrollOffset(float currentOffsetY, float deltaY, int itemCount, float viewportHeight) =>
-        deltaY == 0.0f ? currentOffsetY : Math.Clamp(currentOffsetY + deltaY, 0.0f, MaxScrollOffset(itemCount, viewportHeight));
+    public static float NextAutoScrollOffset(float currentOffsetY, float deltaY, int itemCount, float viewportHeight, float rowBodyHeight) =>
+        deltaY == 0.0f
+            ? currentOffsetY
+            : Math.Clamp(currentOffsetY + deltaY, 0.0f, MaxScrollOffset(itemCount, viewportHeight, rowBodyHeight));
 
     private static float AutoScrollStep(float activationDistance)
     {

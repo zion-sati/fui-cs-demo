@@ -37,7 +37,8 @@ internal sealed class TextAreaSection
             new DropdownItem("hidden", "Visibility: Hidden - keep layout reserved but stop painting content"),
             new DropdownItem("collapsed", "Visibility: Collapsed - remove layout space and hide the content"))
         .SelectedIndex(0)
-        .Width(350.0f);
+        .Width(350.0f)
+        .MaxWidth(100.0f, Unit.Percent);
     private readonly DemoText focusStatusText = new("", DemoTextStyle.Caption);
     private readonly DemoText selectionStatusText = new("", DemoTextStyle.Caption);
     private readonly DemoText settingsStatusText = new("", DemoTextStyle.BodySecondary);

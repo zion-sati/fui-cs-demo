@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
-  "semanticBuildId": "95ce829375ac9fe04e79eff3e28a727e5da4ef273bfaeb959dbd39e97f2cb5a6",
+  "semanticBuildId": "a39a8deae26ed1d6ca407e38f5734592b9501a006d07acd37f510ef79b7ae964",
   "deploymentKind": "raw",
   "profile": "netwasm0.1",
   "target": "wasm32",
   "featureSet": "none",
   "executionContract": "netwasm:browser/jsexport@1.0.0",
   "versions": {
-    "sdk": "0.10.6",
-    "compiler": "0.10.6",
-    "runtime": "0.10.6",
+    "sdk": "0.10.7",
+    "compiler": "0.10.7",
+    "runtime": "0.10.7",
     "runtimeAbi": "netwasm.runtime.v1",
-    "hosting": "0.10.6",
-    "toolchain": "0.10.6"
+    "hosting": "0.10.7",
+    "toolchain": "0.10.7"
   },
-  "buildFingerprint": "4c9e70ca4d7380b3bec05db869c9c4e81cb84cf445b64df49026c2a1e90162ad",
+  "buildFingerprint": "897596c8d5294871f2a5c701b3301e2707e67ccbe9db0d3cf72f4076e7bf3f5c",
   "runtimeFeatures": [],
   "artifacts": [
     {
       "relativePath": "FuiCsDemo.AdvancedWorker.exceptions.json",
       "role": "exception-type-map",
       "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
-      "sha256": "64df461ad2e3a36b482ad5729506ceb8b45d3a634ea5ad0d6f553043d73aaa14",
+      "sha256": "be5bfd187217fb8f6af144847738e47eb453ec8dbbc05df88ee7da1c3828c395",
       "schemaVersion": 2
     },
     {
@@ -35,28 +35,28 @@
       "relativePath": "FuiCsDemo.AdvancedWorker.wasm",
       "role": "application",
       "mediaType": "application/wasm",
-      "sha256": "e69f9700878c4fe2a953d42d8c3ce0c2f84e15c20f973f909f1c75fb2ac91ca4",
+      "sha256": "b6315f7fdcf8c9b4662fc299c6509702df95dbfed65cef68dcc7a5b446fdf960",
       "schemaVersion": null
     },
     {
       "relativePath": "FuiCsDemo.AdvancedWorker.worker.mjs",
       "role": "worker-javascript",
       "mediaType": "text/javascript",
-      "sha256": "1d37bbdc2f714d8c91dafffa7766262b2450101a48c37dff77e0f18f806fda64",
+      "sha256": "f2391da6becf72c80b1474a47aaa5aede2e8ebc3bfb2bdbe8e44c7aa693785d8",
       "schemaVersion": null
     },
     {
       "relativePath": "interop.json",
       "role": "interop-manifest",
       "mediaType": "application/json",
-      "sha256": "7789755200da69b8808a7fbb24d03bc2d91e902d7edf48d0c284f7d2d80e30ce",
+      "sha256": "0822cb8375bd187fac53a1196310971b2ca2f34f0a4f5e25e73f72ed0d990978",
       "schemaVersion": 1
     },
     {
       "relativePath": "runtime-layout.json",
       "role": "runtime-layout",
       "mediaType": "application/json",
-      "sha256": "89eaf8170b4a872b709629e88e17b6fc188804e321c84f40d6ecf67607059bf7",
+      "sha256": "bdfda55c85ef6957443f92673682daccb064def61cf90a78a61d4b60d0e5a59c",
       "schemaVersion": 1
     }
   ],

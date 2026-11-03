@@ -1,4 +1,4 @@
-<Project Sdk="NetWasm.Sdk/0.10.6">
+<Project Sdk="NetWasm.Sdk/0.10.7">
 
   <!-- Code the routes share: the demo's design system, its route page, the route paths, and the demo shell's
        JavaScript, which every route that references this project bundles. -->
@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FuiCs" Version="0.3.0" />
+    <PackageReference Include="FuiCs" Version="0.4.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,7 +4,8 @@ namespace FuiCsDemo.Shared;
 
 /// <summary>
 /// A rounded surface that stacks its children: bordered and shadowed in the theme's colors, with less padding and
-/// margin in the compact layout, so nested panels leave more of a phone's width to their content.
+/// margin in the compact layout, so nested panels leave more of a phone's width to their content. Content wider than a
+/// phone (images, fixed-width samples) is cut at the padding rather than drawn over the border.
 /// </summary>
 public class Panel : FlexBox
 {
@@ -13,6 +14,7 @@ public class Panel : FlexBox
         FlexDirection = FlexDirection.Column;
         AlignItems = AlignItems.Start;
         CornerRadius = new CornerRadius(16.0f);
+        ClipToBounds = true;
         Track(Responsive.Subscribe(ApplySpacing));
         Track(Theme.Bind(ApplyDemoTheme));
     }

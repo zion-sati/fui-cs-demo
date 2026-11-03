@@ -45,19 +45,22 @@ internal sealed class ReorderRowView
             .DragAllowedEffects(DragDropEffects.Move)
             .OnDragCompleted(e => HandleDragCompleted(e.Effect));
         TitleText = new Text("").FontSize(16.0f);
-        DetailText = new Text("").FontSize(14.0f).MaxLines(2);
+        DetailText = new Text("").FontSize(14.0f).MaxLines(2).Overflow(TextOverflow.Ellipsis);
         Card = new FlexBox()
             .FillWidth()
-            .Height(ReorderDemoLogic.RowBodyHeight)
+            .Height(section.RowBodyHeight)
             .Padding(16.0f, 14.0f, 16.0f, 14.0f)
             .CornerRadius(18.0f)
+            .JustifyContent(JustifyContent.Center)
             .Child(FlexBox.Row(
                     Grip,
                     new FlexBox().Width(14.0f).Height(1.0f),
                     FlexBox.Column(TitleText, new FlexBox().FillWidth().Height(4.0f), DetailText).FillWidth())
                 .FillWidth());
+        // Clipped at the card's border, so text a narrow screen wraps onto more lines stays inside the card.
         Slot = FlexBox.Column(Marker, Card)
             .FillWidth()
+            .ClipToBounds(true)
             .AllowDrop()
             .OnDragEnter(e => e.Proposal = section.PreviewInsertion(e, RawIndex))
             .OnDragOver(e => e.Proposal = section.PreviewInsertion(e, RawIndex))

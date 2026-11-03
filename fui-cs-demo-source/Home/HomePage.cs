@@ -88,7 +88,7 @@ internal sealed class HomePage : ManagedApplicationController
             .Radio(new DemoRadioButton("balanced", "Balanced"), new DemoRadioButton("quality", "Quality first"), new DemoRadioButton("speed", "Speed first"))
             .SelectedIndex(0);
         qualityRadioGroup.Changed += _ => ShowSelectionSummary();
-        horizontalSlider.Minimum(0.0f).Maximum(100.0f).Step(5.0f).Length(300.0f).Orientation(Orientation.Horizontal);
+        horizontalSlider.Minimum(0.0f).Maximum(100.0f).Step(5.0f).Orientation(Orientation.Horizontal);
         horizontalSlider.Changed += _ => ShowSelectionSummary();
         verticalSlider.Minimum(0.0f).Maximum(100.0f).Step(5.0f).Length(150.0f).Orientation(Orientation.Vertical);
         verticalSlider.Changed += _ => ShowSelectionSummary();
@@ -210,6 +210,21 @@ internal sealed class HomePage : ManagedApplicationController
             .FontSize(14.0f)
             .FillWidth();
         Application.OnUnmount(Theme.Bind(theme => accessibility.TextColor = theme.Colors.TextMuted).Dispose);
+        // In the compact layout this column, and the slider in it, fill the room the vertical slider leaves.
+        var horizontalColumn = FlexBox.Column(new DemoText("Horizontal", DemoTextStyle.BodySecondary), Spacing.Vertical(Spacing.MicroStackGap), horizontalSlider);
+        Application.OnUnmount(Responsive.Subscribe(compact =>
+        {
+            if (compact)
+            {
+                horizontalColumn.FillWidth();
+                horizontalSlider.FillLength();
+            }
+            else
+            {
+                horizontalColumn.Width(Length.Auto);
+                horizontalSlider.Length(300.0f);
+            }
+        }).Dispose);
         return new Panel()
             .Child(new DemoText("Common Controls", DemoTextStyle.Heading3))
             .Child(Spacing.Vertical(Spacing.HeadingToBodyGap))
@@ -232,7 +247,7 @@ internal sealed class HomePage : ManagedApplicationController
             .Child(new DemoText("Sliders", DemoTextStyle.Label))
             .Child(Spacing.Vertical(Spacing.LabelToControlGap))
             .Child(FlexBox.Row(
-                    FlexBox.Column(new DemoText("Horizontal", DemoTextStyle.BodySecondary), Spacing.Vertical(Spacing.MicroStackGap), horizontalSlider),
+                    horizontalColumn,
                     Spacing.Horizontal(16.0f),
                     FlexBox.Column(new DemoText("Vertical", DemoTextStyle.BodySecondary), Spacing.Vertical(Spacing.MicroStackGap), verticalSlider))
                 .AlignItems(AlignItems.Stretch)
@@ -241,36 +256,60 @@ internal sealed class HomePage : ManagedApplicationController
             .Width(Length.Auto);
     }
 
-    private Panel CreateImagesPanel() => new Panel()
-        .Child(new DemoText("Images with Transparency", DemoTextStyle.Heading3))
-        .Child(Spacing.Vertical(Spacing.PanelSectionGap))
-        .Child(new DemoText("Image 1: JPG with no transparency", DemoTextStyle.BodySecondary))
-        .Child(Spacing.Vertical(Spacing.LabelToControlGap))
-        .Child(Image.Load("https://upload.wikimedia.org/wikipedia/commons/d/d3/Golden_Gate_Bridge_at_sunset_1.jpg", ObjectFit.Cover)
+    /// <summary>The images, which in the compact layout shrink to fit a phone, keeping their proportions.</summary>
+    private Panel CreateImagesPanel()
+    {
+        var bridgePhoto = Image.Load("https://upload.wikimedia.org/wikipedia/commons/d/d3/Golden_Gate_Bridge_at_sunset_1.jpg", ObjectFit.Cover)
             .AltText("Sample image1 - JPG")
-            .Width(640.0f)
-            .Height(480.0f)
-            .ToolTip(DelayedToolTip("Sample image1 - JPG")))
-        .Child(Spacing.Vertical(Spacing.PanelSectionGap))
-        .Child(new DemoText("Image 2: PNG with transparency", DemoTextStyle.BodySecondary))
-        .Child(Spacing.Vertical(Spacing.LabelToControlGap))
-        .Child(Image.Load("https://upload.wikimedia.org/wikipedia/commons/6/67/1932_eagle_reverse%28Transparency%29.png", ObjectFit.Cover)
+            .ToolTip(DelayedToolTip("Sample image1 - JPG"));
+        var coinImage = Image.Load("https://upload.wikimedia.org/wikipedia/commons/6/67/1932_eagle_reverse%28Transparency%29.png", ObjectFit.Cover)
             .AltText("Sample image2 - PNG with transparency")
-            .ToolTip(DelayedToolTip("Sample image2 - PNG with transparency")))
-        .Child(Spacing.Vertical(Spacing.PanelSectionGap))
-        .Child(new DemoText("Image 3: SVG", DemoTextStyle.BodySecondary))
-        .Child(Spacing.Vertical(Spacing.LabelToControlGap))
-        .Child(Svg.Load("https://upload.wikimedia.org/wikipedia/commons/d/d0/Drawsvgbird.svg")
+            .ToolTip(DelayedToolTip("Sample image2 - PNG with transparency"));
+        var birdSvg = Svg.Load("https://upload.wikimedia.org/wikipedia/commons/d/d0/Drawsvgbird.svg")
             .AltText("Sample SVG image")
-            .Height(600.0f)
-            .ToolTip(DelayedToolTip("Sample SVG image")))
-        .Child(Spacing.Vertical(Spacing.PanelSectionGap))
-        .Child(new DemoText("Image 4: Custom bitmap", DemoTextStyle.BodySecondary))
-        .Child(Spacing.Vertical(Spacing.LabelToControlGap))
-        .Child(new Image(bitmap.TextureId, ObjectFit.Contain)
+            .ToolTip(DelayedToolTip("Sample SVG image"));
+        var bitmapImage = new Image(bitmap.TextureId, ObjectFit.Contain)
             .AltText("App-owned premultiplied RGBA bitmap sample")
-            .ToolTip(DelayedToolTip("App-owned premultiplied RGBA bitmap sample")));
+            .ToolTip(DelayedToolTip("App-owned premultiplied RGBA bitmap sample"));
+        Application.OnUnmount(Responsive.Subscribe(compact =>
+        {
+            if (compact)
+            {
+                // A fixed width with an automatic height keeps each image's proportions.
+                bridgePhoto.Width(Responsive.CompactSampleWidth).Height(Length.Auto);
+                coinImage.Width(Responsive.CompactSampleWidth).Height(Length.Auto);
+                birdSvg.Width(Responsive.CompactSampleWidth).Height(Length.Auto);
+                bitmapImage.Width(Responsive.CompactSampleWidth).Height(Length.Auto);
+            }
+            else
+            {
+                bridgePhoto.Width(640.0f).Height(480.0f);
+                coinImage.Width(Length.Auto).Height(Length.Auto);
+                birdSvg.Width(Length.Auto).Height(600.0f);
+                bitmapImage.Width(Length.Auto).Height(Length.Auto);
+            }
+        }).Dispose);
+        return new Panel()
+            .Child(new DemoText("Images with Transparency", DemoTextStyle.Heading3))
+            .Child(Spacing.Vertical(Spacing.PanelSectionGap))
+            .Child(new DemoText("Image 1: JPG with no transparency", DemoTextStyle.BodySecondary))
+            .Child(Spacing.Vertical(Spacing.LabelToControlGap))
+            .Child(bridgePhoto)
+            .Child(Spacing.Vertical(Spacing.PanelSectionGap))
+            .Child(new DemoText("Image 2: PNG with transparency", DemoTextStyle.BodySecondary))
+            .Child(Spacing.Vertical(Spacing.LabelToControlGap))
+            .Child(coinImage)
+            .Child(Spacing.Vertical(Spacing.PanelSectionGap))
+            .Child(new DemoText("Image 3: SVG", DemoTextStyle.BodySecondary))
+            .Child(Spacing.Vertical(Spacing.LabelToControlGap))
+            .Child(birdSvg)
+            .Child(Spacing.Vertical(Spacing.PanelSectionGap))
+            .Child(new DemoText("Image 4: Custom bitmap", DemoTextStyle.BodySecondary))
+            .Child(Spacing.Vertical(Spacing.LabelToControlGap))
+            .Child(bitmapImage);
+    }
 
+    /// <summary>The nested scroll box, which in the compact layout takes its panel's width.</summary>
     private static Panel CreateNestedScrollPanel()
     {
         var content = new FlexBox()
@@ -288,11 +327,25 @@ internal sealed class HomePage : ManagedApplicationController
             VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
             ScrollBarGutter = 8.0f,
         };
-        nested.Width(300.0f).Height(240.0f).Child(content);
+        nested.Height(240.0f).Child(content);
+        var nestedPanel = new Panel().Child(nested);
+        Application.OnUnmount(Responsive.Subscribe(compact =>
+        {
+            if (compact)
+            {
+                nestedPanel.Width(Length.Auto).AlignSelf(AlignSelf.Stretch);
+                nested.FillWidth();
+            }
+            else
+            {
+                nestedPanel.Width(360.0f).AlignSelf(AlignSelf.Auto);
+                nested.Width(300.0f);
+            }
+        }).Dispose);
         return new Panel()
             .Child(new DemoText("Nested ScrollBox", DemoTextStyle.Heading3))
             .Child(Spacing.Vertical(Spacing.PanelSectionGap))
-            .Child(new Panel().Child(nested).Width(360.0f));
+            .Child(nestedPanel);
     }
 
     private Panel CreateFoundationsPanel() => new Panel()
@@ -385,7 +438,7 @@ internal sealed class HomePage : ManagedApplicationController
     {
         PlatformFamily.Apple => "Cmd+Shift+F12",
         PlatformFamily.Windows => "Win+Shift+F12",
-        PlatformFamily.Linux => "Super+Shift+F12",
+        PlatformFamily.Linux => "Meta+Shift+F12",
         _ => "Meta+Shift+F12",
     };
 }

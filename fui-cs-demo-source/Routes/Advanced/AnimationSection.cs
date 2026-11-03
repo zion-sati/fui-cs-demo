@@ -33,9 +33,10 @@ internal sealed class AnimationSection
     {
         previewCard = new FlexBox()
             .FillWidth()
-            .Height(128.0f)
+            .MinHeight(128.0f)
             .Padding(18.0f, 18.0f, 18.0f, 18.0f)
             .CornerRadius(20.0f)
+            .ClipToBounds(true)
             .Child(FlexBox.Column(previewTitle, Spacing.Vertical(8.0f), previewBody).FillWidth())
             .Transitions(new NodeTransitions
             {
@@ -53,10 +54,12 @@ internal sealed class AnimationSection
                 .Height(RowHeight)
                 .Padding(16.0f, 12.0f, 16.0f, 12.0f)
                 .CornerRadius(14.0f)
+                .ClipToBounds(true)
                 .Child(FlexBox.Column(
                         new DemoText("Animation sample row " + (index + 1), DemoTextStyle.Body),
                         Spacing.Vertical(4.0f),
-                        new DemoText(detail, DemoTextStyle.BodySecondary))
+                        // One line, so a phone's narrower row keeps the fixed height the scroll targets count in.
+                        new DemoText(detail, DemoTextStyle.BodySecondary).MaxLines(1).Overflow(TextOverflow.Ellipsis))
                     .FillWidth());
             content.Child(rows[index]);
         }

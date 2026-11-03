@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
-  "semanticBuildId": "55c5b16b8fb08d8108694b9b1f8d16d12f15c17b76f29d659d43b546468e9fe0",
+  "semanticBuildId": "8563f034754780bea48c64be200d792500202c1b227fc373e6217466eba82c96",
   "deploymentKind": "raw",
   "profile": "netwasm0.1",
   "target": "wasm32",
   "featureSet": "none",
   "executionContract": "netwasm:browser/jsexport@1.0.0",
   "versions": {
-    "sdk": "0.10.6",
-    "compiler": "0.10.6",
-    "runtime": "0.10.6",
+    "sdk": "0.10.7",
+    "compiler": "0.10.7",
+    "runtime": "0.10.7",
     "runtimeAbi": "netwasm.runtime.v1",
-    "hosting": "0.10.6",
-    "toolchain": "0.10.6"
+    "hosting": "0.10.7",
+    "toolchain": "0.10.7"
   },
-  "buildFingerprint": "25d6460219b3822ef82b443ca7eb5725705a9cbaaaf74cf3289a499090b0273e",
+  "buildFingerprint": "216dbf50f4d442731ff0cf8c20ccd4e8964e82a7d341abe152c57f7897b48dfd",
   "runtimeFeatures": [],
   "artifacts": [
     {
       "relativePath": "FuiCsDemo.TextFonts.exceptions.json",
       "role": "exception-type-map",
       "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
-      "sha256": "8d5e57bc09fd77158ad1a4db21b52d8f8b515efbffbd2a05d7becf37f66a4880",
+      "sha256": "a3651dc14008943bd295ac449082e1251ac888660b19bbaebc7a73e0d6645d63",
       "schemaVersion": 2
     },
     {
@@ -35,7 +35,7 @@
       "relativePath": "FuiCsDemo.TextFonts.wasm",
       "role": "application",
       "mediaType": "application/wasm",
-      "sha256": "6165d8f9fd694b99fdacf137596312f2bd5bed0131f43ccde247dbe78629ca4a",
+      "sha256": "4e14022eced63a138fb79d69bea568b5f5667598fe7aec45a5c6aa9524dbb088",
       "schemaVersion": null
     },
     {
@@ -49,14 +49,14 @@
       "relativePath": "netwasm.page.mjs",
       "role": "hosting-javascript",
       "mediaType": "text/javascript",
-      "sha256": "621cea2d73d5261626a26d6ac508986ad6cdd352ec4268f0dc14f882f7ff46aa",
+      "sha256": "31c171577413c60b3b7140cd4775566fb4e0aaf058127b22b0a50e4d96207dfe",
       "schemaVersion": null
     },
     {
       "relativePath": "runtime-layout.json",
       "role": "runtime-layout",
       "mediaType": "application/json",
-      "sha256": "763ac8295b0da00b165e12532f627dd4fe3a082a57764542af94a59c1e1f11ef",
+      "sha256": "de4ff962818ceec08cf93b645d0f810c21259e2dd4de25d6cd8704d2c131c848",
       "schemaVersion": 1
     }
   ],

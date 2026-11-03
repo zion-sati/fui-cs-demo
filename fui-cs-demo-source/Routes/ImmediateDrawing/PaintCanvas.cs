@@ -107,9 +107,12 @@ internal sealed class PaintCanvas : CustomDrawable
 
     private void Dab(float x, float y)
     {
-        var centerX = (int)Math.Round(x * bitmapScale);
-        var centerY = (int)Math.Round(y * bitmapScale);
-        var radius = (int)Math.Max(1.0, Math.Round(BrushRadius * bitmapScale));
+        // The bitmap keeps its full-size resolution when the canvas is drawn smaller.
+        var drawnSize = GetBounds().Width;
+        var scale = drawnSize > 0.0f ? bitmap.Width / drawnSize : bitmapScale;
+        var centerX = (int)Math.Round(x * scale);
+        var centerY = (int)Math.Round(y * scale);
+        var radius = (int)Math.Max(1.0, Math.Round(BrushRadius * scale));
         var color = DrawingColors.Needle;
         var pixels = bitmap.Pixels;
         var width = bitmap.Width;

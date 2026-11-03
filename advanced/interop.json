@@ -2855,15 +2855,15 @@
   "callbacks": [],
   "witImports": [
     {
-      "interface": "netwasm:runtime@1.0.0/reactor-host",
+      "interface": "netwasm:runtime/reactor-host@1.0.0",
       "function": "cancel"
     },
     {
-      "interface": "netwasm:runtime@1.0.0/reactor-host",
+      "interface": "netwasm:runtime/reactor-host@1.0.0",
       "function": "watch"
     },
     {
-      "interface": "wasi:clocks@0.2.11/monotonic-clock",
+      "interface": "wasi:clocks/monotonic-clock@0.2.11",
       "function": "subscribe-duration"
     }
   ],

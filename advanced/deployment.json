@@ -1,27 +1,27 @@
 {
   "schemaVersion": 1,
-  "semanticBuildId": "18235ecdbbd83a3c130a9152c6628b2ae4bc572f041cf0097f40386379aee035",
+  "semanticBuildId": "be7583ec6cc8d2a3b3d89d2908d84f4f40286ba4a66f45d3faa727cba477499a",
   "deploymentKind": "raw",
   "profile": "netwasm0.1",
   "target": "wasm32",
   "featureSet": "none",
   "executionContract": "netwasm:browser/jsexport@1.0.0",
   "versions": {
-    "sdk": "0.10.6",
-    "compiler": "0.10.6",
-    "runtime": "0.10.6",
+    "sdk": "0.10.7",
+    "compiler": "0.10.7",
+    "runtime": "0.10.7",
     "runtimeAbi": "netwasm.runtime.v1",
-    "hosting": "0.10.6",
-    "toolchain": "0.10.6"
+    "hosting": "0.10.7",
+    "toolchain": "0.10.7"
   },
-  "buildFingerprint": "ce178309af1bbc5a10b6d2abec532aa3cddcaa1d7049e1e7189bef605a26159b",
+  "buildFingerprint": "06b28851b3d259a9cdbb30ee93401a1acc49bbd74ec7dd1ba0867f4b7cdbe793",
   "runtimeFeatures": [],
   "artifacts": [
     {
       "relativePath": "FuiCsDemo.Advanced.exceptions.json",
       "role": "exception-type-map",
       "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
-      "sha256": "0ee3eaefef20ed24381b8921b726a877b01cfd0851ed156ce0bb06264d5bbd8e",
+      "sha256": "8938e8c76dbc0dd4ef178fc850a8001c9fddff4e8c2dccf52395261f8c0e6a90",
       "schemaVersion": 2
     },
     {
@@ -35,28 +35,28 @@
       "relativePath": "FuiCsDemo.Advanced.wasm",
       "role": "application",
       "mediaType": "application/wasm",
-      "sha256": "91de5277dbad6f8923cd9d6939f430b9f443f161b4d2ca65242bff74b060824c",
+      "sha256": "3d5da783a2dda0891d3b09d9cb7c00e5b86e4afd28196d4907036a00c8f1f95f",
       "schemaVersion": null
     },
     {
       "relativePath": "interop.json",
       "role": "interop-manifest",
       "mediaType": "application/json",
-      "sha256": "71978f8f3516e336deb18c4cf19859d4cf7207772a591aaac1c8e1a79caf1e54",
+      "sha256": "5d2a0948d59eafc766756c76db9cf8549618d16d782e299a42eb963c3b863bcc",
       "schemaVersion": 1
     },
     {
       "relativePath": "netwasm.page.mjs",
       "role": "hosting-javascript",
       "mediaType": "text/javascript",
-      "sha256": "2c75aba557397eb49e0c6d06f28346ada0b0fd5ce509eb0f669386bb0b98e648",
+      "sha256": "43d93e5627ebf31f775c0590b8640f13ad97648c53ea1bc619d14ffceb31f086",
       "schemaVersion": null
     },
     {
       "relativePath": "runtime-layout.json",
       "role": "runtime-layout",
       "mediaType": "application/json",
-      "sha256": "00a33184f01cd7f9b2571f77f4705b808d837dac2fb98ca1fbd458dfc40dbf16",
+      "sha256": "aea6e7fb243a35409c0db45f20d15766f1ee9e0fb5bb60224b8908195040759e",
       "schemaVersion": 1
     }
   ],

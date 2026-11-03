@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "target": "wasm32",
-  "applicationStaticDataEnd": 49580,
+  "applicationStaticDataEnd": 50440,
   "managedExecutableEntryPoint": null,
   "runtimeFeatures": [],
   "nativeImports": [],

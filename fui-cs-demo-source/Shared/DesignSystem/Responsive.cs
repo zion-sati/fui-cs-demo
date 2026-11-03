@@ -10,6 +10,12 @@ public static class Responsive
 {
     public const float CompactMaxWidth = 860.0f;
 
+    /// <summary>
+    /// The widest a fixed-size sample (an image, a drawing surface, a progress bar) gets in the compact layout: it fits
+    /// inside nested panels on a 360-pixel phone.
+    /// </summary>
+    public const float CompactSampleWidth = 240.0f;
+
     public static bool IsCompact
     {
         get

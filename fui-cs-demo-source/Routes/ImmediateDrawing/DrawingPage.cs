@@ -8,7 +8,8 @@ using FuiCsDemo.Shared;
 namespace FuiCsDemo.ImmediateDrawing;
 
 /// <summary>
-/// The route's page: eight 300 px drawn cards in a wrapping row, in a panel under the route's heading. Once the page has
+/// The route's page: eight square drawn cards in a wrapping row, in a panel under the route's heading; they are 300 px
+/// wide, or <see cref="Responsive.CompactSampleWidth"/> in the compact layout. Once the page has
 /// loaded, a 25 ms tick sweeps a value from 0 to 100 and back and feeds the plots values derived from it, and the paint
 /// canvas's hint is rendered from rich text into its bitmap. Disposing the page stops the tick.
 /// </summary>
@@ -66,6 +67,7 @@ internal sealed class DrawingPage : ManagedApplicationController
         var page = new PageShell("Immediate Drawing - FUI-CS Demo", DemoRoutes.ImmediateDrawing, mainPanel, "immediate-drawing-scroll");
         root = new SelectionArea().FillSize().Child(page);
         Application.OnUnmount(Theme.Bind(theme => root.Background = theme.Colors.Background).Dispose);
+        Application.OnUnmount(Responsive.Subscribe(ApplySampleSizes).Dispose);
         FrameScheduler.OnLoaded(_ =>
         {
             RunTicks(ticking.Token);
@@ -92,6 +94,17 @@ internal sealed class DrawingPage : ManagedApplicationController
     }
 
     private static CustomDrawable Card(CustomDrawable drawable) => drawable.Margin(0.0f, 0.0f, 16.0f, 16.0f);
+
+    /// <summary>The cards fit a phone in the compact layout; each draws to its own size from its next frame.</summary>
+    private void ApplySampleSizes(bool compact)
+    {
+        var size = compact ? Responsive.CompactSampleWidth : 300.0f;
+        foreach (var surface in new CustomDrawable[] { gauge, chart, wave, spark, pie, scatter, yarn, paintCanvas })
+        {
+            surface.Width(size).Height(size);
+            surface.InvalidateVisual();
+        }
+    }
 
     /// <summary>Ticks every 25 ms, each tick scheduled after the last, until the page is disposed.</summary>
     private async void RunTicks(CancellationToken cancellation)
