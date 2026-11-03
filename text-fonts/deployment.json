@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "semanticBuildId": "e24f8657aa95f6ace903f557acccfe9203766c4ca23f69fdddb6b2c8a7f694d1",
+  "semanticBuildId": "172fb0cbac9a1c1653c36d011e25fe0f40506c05c67a6029d5884013cac017c1",
   "deploymentKind": "raw",
   "profile": "netwasm0.1",
   "target": "wasm32",
@@ -14,14 +14,14 @@
     "hosting": "0.10.7",
     "toolchain": "0.10.7"
   },
-  "buildFingerprint": "3d443090fd0ddf67533247fb3fb4e4ea15bd1f643df094c557e729da74a3d4a0",
+  "buildFingerprint": "866caf56fe6c793829fdc70343721437740bbcb9a3d02e880dde6ce9ff0cf67b",
   "runtimeFeatures": [],
   "artifacts": [
     {
       "relativePath": "FuiCsDemo.TextFonts.exceptions.json",
       "role": "exception-type-map",
       "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
-      "sha256": "f44f998bb424292d25b8e2861a4879c1c04d95a4853152d814ff674d2dd25c86",
+      "sha256": "0e8a1eef75a5c276cc0dbab10482f80186de217f0ddb9414822d25b80bc1edca",
       "schemaVersion": 2
     },
     {

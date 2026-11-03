@@ -15,13 +15,13 @@ public static class FuiWorker
         .Add("largestPrimeCalculatorWorker", input => new LargestPrimeCalculatorJob().Start(input));
 
     /// <summary>
-    /// Searches for primes for five seconds, reporting the elapsed percentage and yielding once a second; a cancel takes
+    /// Searches for primes for five seconds, reporting the elapsed percentage and yielding every 10 ms; a cancel takes
     /// effect at the next yield and fails the job with <c>cancelled:</c> and the percentage reached.
     /// </summary>
     private sealed class LargestPrimeCalculatorJob : WorkerJob
     {
         private static readonly TimeSpan Total = TimeSpan.FromSeconds(5.0);
-        private static readonly TimeSpan YieldInterval = TimeSpan.FromSeconds(1.0);
+        private static readonly TimeSpan YieldInterval = TimeSpan.FromMilliseconds(10.0);
         private const int TimeCheckMask = 127;
 
         protected override async Task Run()
@@ -84,12 +84,18 @@ public static class FuiWorker
             {
                 return false;
             }
-            for (var divisor = 3; divisor <= value / divisor; divisor += 2)
+            // One division per step: the remainder is zero exactly when the quotient times the divisor gives the value
+            // back, so the quotient serves both the bound and the test.
+            var divisor = 3;
+            var quotient = value / divisor;
+            while (divisor <= quotient)
             {
-                if (value % divisor == 0)
+                if (quotient * divisor == value)
                 {
                     return false;
                 }
+                divisor += 2;
+                quotient = value / divisor;
             }
             return true;
         }

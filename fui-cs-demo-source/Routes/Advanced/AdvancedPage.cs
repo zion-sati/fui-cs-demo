@@ -47,7 +47,15 @@ internal sealed class AdvancedPage : ManagedApplicationController
             .Child(Spacing.Vertical(Spacing.PageSectionGap))
             .Child(SectionPanel(new DemoText("Online Fetch Sample", DemoTextStyle.Heading3), Spacing.Vertical(Spacing.TitleToSupportingGap), fetch.Root).FillWidth())
             .Child(Spacing.Vertical(Spacing.PageSectionGap))
-            .Child(SectionPanel(new DemoText("Drag-and-Drop Reorder / Custom Control", DemoTextStyle.Heading3), Spacing.Vertical(Spacing.TitleToSupportingGap), reorder.Root).FillWidth()))
+            .Child(SectionPanel(
+                    new DemoText("Drag-and-Drop Reorder / Custom Control", DemoTextStyle.Heading3),
+                    Spacing.Vertical(Spacing.TitleToSupportingGap),
+                    reorder.Root,
+                    Spacing.Vertical(12.0f),
+                    reorder.StatusText,
+                    Spacing.Vertical(10.0f),
+                    reorder.HintText)
+                .FillWidth()))
         .FillSize();
 
     private static Panel SectionPanel(params Node[] children)

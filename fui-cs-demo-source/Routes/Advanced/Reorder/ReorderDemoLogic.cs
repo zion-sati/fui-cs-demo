@@ -32,14 +32,14 @@ internal static class ReorderDemoLogic
 
     public static List<ReorderDemoItem> CreateItems() =>
     [
-        new("core-rename", "Document Core rename", "Keep Tier 1 references consistently renamed to Core."),
-        new("font-cache", "Audit font shard cache", "Check cache bounds, eviction, and diagnostics before release."),
-        new("drag-demo", "Add drag reorder demo", "Prove the drag/drop controller on a real routed sample."),
-        new("nested-scroll", "Write nested scroll test", "Lock drop-target routing when a scrollable list sits inside a scrolled route."),
-        new("key-router", "Split key router", "Keep keyboard routing focused instead of growing another god file."),
+        new("core", "Document Core rename", "Keep Tier 1 references consistently renamed to Core."),
+        new("font", "Audit font shard cache", "Check cache bounds, eviction, and diagnostics before release."),
+        new("drag", "Add drag reorder demo", "Prove the drag/drop controller on a real routed sample."),
+        new("scroll", "Write nested scroll test", "Lock drop-target routing when a scrollable list sits inside a scrolled route."),
+        new("key", "Split key router", "Keep keyboard routing focused instead of growing another god file."),
         new("semantics", "Tighten semantic ordering", "Make sure reorder status reads in the same order the canvas shows."),
-        new("find-mirror", "Probe find mirror fallback", "Double-check the hidden DOM mirror when large text windows shift."),
-        new("drop-cursor", "Validate drop cursor states", "Keep drag affordances coherent while the source stays captured."),
+        new("find", "Probe find mirror fallback", "Double-check the hidden DOM mirror when large text windows shift."),
+        new("drop", "Validate drop cursor states", "Keep drag affordances coherent while the source stays captured."),
     ];
 
     public static int FindItemIndex(IReadOnlyList<ReorderDemoItem> items, string itemId)

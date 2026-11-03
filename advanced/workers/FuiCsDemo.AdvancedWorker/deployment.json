@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "semanticBuildId": "86ad80fb417bb1575b24c1bf14788dd40008f8008aeb63ce8b42438ea98a5b8d",
+  "semanticBuildId": "1dc4911f39a53b900624cdf5724b7657977d8a9e893e636efc8ed777164b1248",
   "deploymentKind": "raw",
   "profile": "netwasm0.1",
   "target": "wasm32",
@@ -14,14 +14,14 @@
     "hosting": "0.10.7",
     "toolchain": "0.10.7"
   },
-  "buildFingerprint": "347d9809f7c8b0d4fad7820985d5ea6f2e2db2d154e715d5983999e1c9f0c81d",
+  "buildFingerprint": "9a66e5b08c112b1d6e82d5136e113679316e76eb55f58d8df5b3d16452265f2e",
   "runtimeFeatures": [],
   "artifacts": [
     {
       "relativePath": "FuiCsDemo.AdvancedWorker.exceptions.json",
       "role": "exception-type-map",
       "mediaType": "application/vnd.netwasm.exception-types\u002Bjson;version=2",
-      "sha256": "3071f8c7446c94357107af5465e9bfff1d65db398a9141531a25fe126128dde5",
+      "sha256": "517b177e9cb08bd1d4c85c8901a88dc3d5b577ce5f9637a2d18dd4504b6bf615",
       "schemaVersion": 2
     },
     {
@@ -35,7 +35,7 @@
       "relativePath": "FuiCsDemo.AdvancedWorker.wasm",
       "role": "application",
       "mediaType": "application/wasm",
-      "sha256": "b6315f7fdcf8c9b4662fc299c6509702df95dbfed65cef68dcc7a5b446fdf960",
+      "sha256": "6b78ccf08662abac69466f2c3c95bae16cbad7aa7b0b758e649367227b58d273",
       "schemaVersion": null
     },
     {

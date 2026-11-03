@@ -10,14 +10,13 @@ namespace FuiCsDemo.Advanced.Reorder;
 
 /// <summary>
 /// Drag-and-drop reorder of retained rows inside an inner <see cref="ScrollBox"/>: insertion markers, a drag preview
-/// that follows the pointer, cursor feedback, and auto-scroll while the pointer rests near the viewport's edge. The
-/// drag manager re-evaluates drop targets only on pointer events, so auto-scroll runs on a timer and moves the
-/// insertion preview itself while the list scrolls under a still pointer.
+/// that copies the dragged card and follows the pointer, cursor feedback, and auto-scroll while the pointer rests near
+/// the viewport's edge. The drag manager re-evaluates drop targets only on pointer events, so auto-scroll runs on a
+/// timer and moves the insertion preview itself while the list scrolls under a still pointer.
 /// </summary>
 internal sealed class ReorderDemoSection : IDisposable
 {
     private const float PreviewWidth = 272.0f;
-    private const float PreviewHeight = 116.0f;
     private const float PreviewOffsetX = 2.0f;
     private const float PreviewOffsetY = 2.0f;
     private const float PreviewMargin = 12.0f;
@@ -26,37 +25,31 @@ internal sealed class ReorderDemoSection : IDisposable
     private readonly List<ReorderRowView> rows = [];
     private readonly List<ReorderDemoItem> items = ReorderDemoLogic.CreateItems();
     private readonly ScrollBox scrollBox;
-    private readonly Text orderStatusText = new Text("").FontSize(15.0f).NodeId("reorder-order");
-    private readonly Text dragStatusText = new Text("").FontSize(14.0f).NodeId("reorder-drag-status");
-    private readonly Text viewportStatusText = new Text("").FontSize(14.0f).NodeId("reorder-viewport-status");
-    private readonly Text hintText = new DemoText(
-            "Drag a grip with a mouse, or touch and hold before moving. Release to drop. Hold near the viewport edge (or just beyond it) to auto-scroll the inner ScrollBox while the outer route page stays scrollable.",
-            DemoTextStyle.BodySecondary)
-        .MaxLines(4);
+    private readonly Text orderStatusText = new DemoText("", DemoTextStyle.Body).NodeId("reorder-order");
+    private readonly Text dragStatusText = new DemoText("", DemoTextStyle.Caption).NodeId("reorder-drag-status");
+    private readonly Text viewportStatusText = new DemoText("", DemoTextStyle.Caption).NodeId("reorder-viewport-status");
     // The preview's text is not selectable, so the pointer passes through it to the rows: the preview trails the pointer
     // by a frame, and a fast move would otherwise land on its text and lose the drop target until the next move.
-    private readonly Text previewCaptionText = new Text("Dragging").Selectable(false).FontSize(13.0f);
-    private readonly Text previewTitleText = new Text("").Selectable(false).FontSize(16.0f);
-    private readonly Text previewDetailText = new Text("").Selectable(false).FontSize(14.0f).MaxLines(2);
-    private readonly Text previewEffectText = new Text("").Selectable(false).FontSize(13.0f);
+    private readonly Text previewGripText = ReorderRowView.CreateGripLabel();
+    private readonly Text previewTitleText = new DemoText("", DemoTextStyle.Body).Selectable(false);
+    private readonly Text previewDetailText = new DemoText("", DemoTextStyle.Caption).Selectable(false).MaxLines(2).Overflow(TextOverflow.Ellipsis);
     private readonly FlexBox previewGhost;
     private readonly FlexBox endMarker = new FlexBox()
         .FillWidth()
         .Height(ReorderDemoLogic.MarkerHeight)
         .CornerRadius(ReorderDemoLogic.MarkerHeight * 0.5f)
         .Opacity(0.0f);
-    private readonly Text endDropText = new Text("Drop at end of reorder list").FontSize(14.0f);
+    private readonly Text endDropText = new DemoText("Drop at end of reorder list", DemoTextStyle.Caption);
     private readonly FlexBox endDropZone;
     private readonly FlexBox sectionRoot;
     private Theme theme = Theme.Active.Value;
     private string? activeDragItemId;
     private int rawInsertionIndex = -1;
     private float autoScrollDeltaY;
-    private string dragStatusMessage = "Reorder drag status: idle";
+    private string dragStatusMessage = "idle";
     private float previewPointerX = float.NaN;
     private float previewPointerY = float.NaN;
-    private DragDropEffects previewEffect = DragDropEffects.None;
-    private int previewInsertionSlot = -1;
+    private float previewWidth;
     private ITimer? autoScrollTimer;
     private readonly List<IDisposable> subscriptions = [];
 
@@ -66,7 +59,9 @@ internal sealed class ReorderDemoSection : IDisposable
     public ReorderDemoSection()
     {
         var scrollContent = FlexBox.Column().FillWidth();
-        scrollBox = new DemoScrollBox("reorder-viewport")
+        scrollBox = new ScrollBox()
+            .NodeId("reorder-viewport")
+            .ScrollBarGutter(8.0f)
             .HorizontalScrollEnabled(false)
             .VerticalScrollEnabled(true)
             .VerticalScrollBarVisibility(ScrollBarVisibility.Visible)
@@ -76,6 +71,7 @@ internal sealed class ReorderDemoSection : IDisposable
             .Height(ReorderDemoLogic.ViewportHeight)
             .SemanticRole(SemanticRole.StaticText)
             .SemanticLabel("Reorder demo viewport");
+        scrollBox.VerticalScrollBar.TrackCornerRadius(8.0f).ThumbCornerRadius(8.0f);
         scrollBox.Child(scrollContent);
 
         for (var index = 0; index < items.Count; ++index)
@@ -103,22 +99,10 @@ internal sealed class ReorderDemoSection : IDisposable
                 .AlignItems(AlignItems.Center)
                 .Child(endDropText));
         scrollContent.Child(endDropZone);
-        scrollBox.ScrollContentSize(null, ReorderDemoLogic.ContentHeight(items.Count, RowBodyHeight));
 
-        previewGhost = new FlexBox()
+        previewGhost = ReorderRowView.CreateCard(RowBodyHeight, ReorderRowView.CreateGrip(previewGripText), previewTitleText, previewDetailText)
             .PositionAbsolute()
             .Width(PreviewWidth)
-            .Padding(14.0f)
-            .CornerRadius(18.0f)
-            .Child(FlexBox.Column(
-                    previewCaptionText,
-                    Spacer(6.0f),
-                    previewTitleText,
-                    Spacer(4.0f),
-                    previewDetailText,
-                    Spacer(10.0f),
-                    previewEffectText)
-                .FillWidth())
             .Opacity(0.0f)
             .Visibility(Visibility.Hidden)
             .SemanticRole(SemanticRole.StaticText)
@@ -133,9 +117,9 @@ internal sealed class ReorderDemoSection : IDisposable
                 dragStatusText,
                 Spacer(6.0f),
                 viewportStatusText,
-                Spacer(10.0f),
-                hintText)
-            .FillWidth();
+                Spacer(10.0f))
+            .Width(600.0f)
+            .MaxWidth(100.0f, Unit.Percent);
         sectionRoot = new FlexBox().NodeId("reorder-section").FillWidth().Child(body).Child(previewPortal);
 
         subscriptions.Add(Responsive.Subscribe(ApplyRowBodyHeight));
@@ -162,8 +146,17 @@ internal sealed class ReorderDemoSection : IDisposable
         subscriptions.Clear();
     }
 
-    /// <summary>The reorder list with its status lines and hint.</summary>
+    /// <summary>The reorder list with its status lines.</summary>
     public FlexBox Root => sectionRoot;
+
+    /// <summary>The last drag event, for under the section.</summary>
+    public Text StatusText { get; } = new DemoText("", DemoTextStyle.Caption).NodeId("reorder-status");
+
+    /// <summary>How to drag, for under the status.</summary>
+    public Text HintText { get; } = new DemoText(
+            "Drag a grip with a mouse, or touch and hold before moving. Release to drop. The grip highlights the source row and drop indicators mark the insertion point.",
+            DemoTextStyle.BodySecondary)
+        .MaxLines(4);
 
     internal DragDataObject BeginDrag(ReorderDemoItem item)
     {
@@ -172,7 +165,10 @@ internal sealed class ReorderDemoSection : IDisposable
         var sourceIndex = ReorderDemoLogic.FindItemIndex(items, item.Id);
         rawInsertionIndex = sourceIndex >= 0 ? sourceIndex : -1;
         ClearPreview();
-        dragStatusMessage = "Reorder drag status: dragging " + item.Label;
+        // The preview copies the card, at the width it has before its slot collapses.
+        previewWidth = sourceIndex >= 0 ? rows[sourceIndex].Card.GetBounds().Width : 0.0f;
+        dragStatusMessage = "dragging " + item.Label;
+        StatusText.Text = "Dragging: " + item.Label;
         SyncAll();
         return new DragDataObject().SetFormat(ReorderDemoLogic.DragFormat, item.Id).SetText(item.Label);
     }
@@ -184,9 +180,17 @@ internal sealed class ReorderDemoSection : IDisposable
         rawInsertionIndex = -1;
         ClearPreview();
         StopAutoScroll();
-        dragStatusMessage = effect == DragDropEffects.Move
-            ? "Reorder drag status: moved " + itemLabel + " to slot " + Slot(ReorderDemoLogic.FindItemIndex(items, itemId))
-            : "Reorder drag status: cancelled " + itemLabel;
+        if (effect == DragDropEffects.Move)
+        {
+            var slot = Slot(ReorderDemoLogic.FindItemIndex(items, itemId));
+            dragStatusMessage = "moved " + itemLabel + " to slot " + slot;
+            StatusText.Text = "Moved " + itemLabel + " to position " + slot;
+        }
+        else
+        {
+            dragStatusMessage = "cancelled " + itemLabel;
+            StatusText.Text = "Drag cancelled";
+        }
         SyncAll();
     }
 
@@ -206,9 +210,8 @@ internal sealed class ReorderDemoSection : IDisposable
         var normalizedIndex = ReorderDemoLogic.NormalizeInsertionIndex(sourceIndex, insertionIndex, items.Count);
         previewPointerX = args.X;
         previewPointerY = args.Y;
-        previewEffect = DragDropEffects.Move;
-        previewInsertionSlot = normalizedIndex;
-        dragStatusMessage = "Reorder drag status: preview slot " + Slot(normalizedIndex);
+        dragStatusMessage = "preview slot " + Slot(normalizedIndex);
+        StatusText.Text = "Insert at position " + Slot(normalizedIndex);
         SyncAll();
         return new DropProposal(DragDropEffects.Move, ShowInsertionMarker: true);
     }
@@ -230,20 +233,17 @@ internal sealed class ReorderDemoSection : IDisposable
         if (autoScrollDeltaY == 0.0f)
         {
             rawInsertionIndex = -1;
-            previewEffect = DragDropEffects.None;
-            previewInsertionSlot = -1;
-            dragStatusMessage = "Reorder drag status: dragging " + ActiveDragLabel();
+            dragStatusMessage = "dragging " + ActiveDragLabel();
         }
         else
         {
             var direction = autoScrollDeltaY < 0.0f ? -1 : 1;
-            rawInsertionIndex = ReorderDemoLogic.EdgeInsertionIndex(direction, items.Count, visibleRange);
-            var sourceIndex = ReorderDemoLogic.FindItemIndex(items, activeDragItemId);
-            previewEffect = DragDropEffects.Move;
-            previewInsertionSlot = rawInsertionIndex < 0 || sourceIndex < 0
-                ? -1
-                : ReorderDemoLogic.NormalizeInsertionIndex(sourceIndex, rawInsertionIndex, items.Count);
-            dragStatusMessage = "Reorder drag status: auto-scrolling " + (direction < 0 ? "up" : "down");
+            var insertionIndex = ReorderDemoLogic.EdgeInsertionIndex(direction, items.Count, visibleRange);
+            if (insertionIndex >= 0)
+            {
+                rawInsertionIndex = insertionIndex;
+                dragStatusMessage = "autoscroll " + (direction < 0 ? "up" : "down");
+            }
         }
         SyncAll();
     }
@@ -255,11 +255,16 @@ internal sealed class ReorderDemoSection : IDisposable
         {
             return;
         }
-        ReorderDemoLogic.MoveItem(items, itemId, rawInsertionIndex);
-        for (var index = 0; index < rows.Count; ++index)
+        var normalizedIndex = ReorderDemoLogic.NormalizeInsertionIndex(ReorderDemoLogic.FindItemIndex(items, itemId), rawInsertionIndex, items.Count);
+        if (ReorderDemoLogic.MoveItem(items, itemId, rawInsertionIndex))
         {
-            rows[index].BindItem(items[index]);
+            for (var index = 0; index < rows.Count; ++index)
+            {
+                rows[index].BindItem(items[index]);
+            }
+            StatusText.Text = "Moved to position " + Slot(normalizedIndex);
         }
+        rawInsertionIndex = -1;
         SyncAll();
     }
 
@@ -286,7 +291,7 @@ internal sealed class ReorderDemoSection : IDisposable
         scrollBox.SetScrollOffset(0.0f, nextOffset);
         var direction = autoScrollDeltaY < 0.0f ? -1 : 1;
         rawInsertionIndex = ReorderDemoLogic.EdgeInsertionIndex(direction, items.Count, VisibleRange());
-        dragStatusMessage = "Reorder drag status: auto-scrolling " + (direction < 0 ? "up" : "down");
+        dragStatusMessage = "auto-scrolling " + (direction < 0 ? "up" : "down");
         SyncAll();
         ArmAutoScrollTimer();
     }
@@ -295,11 +300,9 @@ internal sealed class ReorderDemoSection : IDisposable
     {
         previewPointerX = float.NaN;
         previewPointerY = float.NaN;
-        previewEffect = DragDropEffects.None;
-        previewInsertionSlot = -1;
     }
 
-    private string OrderSummary() => "Reorder order: " + string.Join(" | ", items.ConvertAll(item => item.Label));
+    private string OrderSummary() => "Order: " + string.Join(", ", items.ConvertAll(item => item.Id));
 
     private string ActiveDragLabel() => FindItem(activeDragItemId)?.Label ?? "item";
 
@@ -312,7 +315,7 @@ internal sealed class ReorderDemoSection : IDisposable
     private void SyncAll()
     {
         orderStatusText.Text = OrderSummary();
-        dragStatusText.Text = dragStatusMessage;
+        dragStatusText.Text = "Drag status: " + dragStatusMessage;
         SyncViewportStatus();
         SyncPreviewGhost();
         ApplyTheme();
@@ -320,15 +323,14 @@ internal sealed class ReorderDemoSection : IDisposable
 
     private void SyncViewportStatus()
     {
-        var visibleRange = VisibleRange();
-        var firstVisible = visibleRange.LastVisibleIndex < 0 ? 0 : visibleRange.FirstVisibleIndex + 1;
-        var lastVisible = visibleRange.LastVisibleIndex < 0 ? 0 : visibleRange.LastVisibleIndex + 1;
-        viewportStatusText.Text = string.Create(
-            CultureInfo.InvariantCulture,
-            $"Reorder viewport status: offset {(int)scrollBox.ScrollState.OffsetY.Value} | visible {firstVisible}-{lastVisible}");
+        var contentHeight = ReorderDemoLogic.ContentHeight(items.Count, RowBodyHeight);
+        viewportStatusText.Text = "Viewport: offset=" + Pixels(scrollBox.ScrollState.OffsetY.Value) + " viewH="
+            + Pixels(scrollBox.ScrollState.ViewportHeight.Value) + " content=" + Pixels(contentHeight);
     }
 
-    /// <summary>Shows the drag preview just below and right of the pointer, kept inside the section.</summary>
+    private static string Pixels(float value) => value.ToString("0.0#####", CultureInfo.InvariantCulture);
+
+    /// <summary>Shows the drag preview, the size of the dragged card, just below and right of the pointer.</summary>
     private void SyncPreviewGhost()
     {
         var item = FindItem(activeDragItemId);
@@ -339,23 +341,16 @@ internal sealed class ReorderDemoSection : IDisposable
         }
         previewTitleText.Text = item.Label;
         previewDetailText.Text = item.Detail;
-        previewEffectText.Text = previewEffect == DragDropEffects.Move && previewInsertionSlot >= 0
-            ? "Drop to move to slot " + Slot(previewInsertionSlot)
-            : "Release outside the list to cancel";
         previewGhost.SemanticLabel = "Reorder drag preview for " + item.Label;
-        var bounds = sectionRoot.GetBounds();
-        var sectionWidth = bounds.Width > 0.0f ? bounds.Width : FallbackExtent(Application.ViewportWidth.Value, PreviewWidth);
-        var sectionHeight = bounds.Height > 0.0f ? bounds.Height : FallbackExtent(Application.ViewportHeight.Value, PreviewHeight);
+        var width = previewWidth > 0.0f ? previewWidth : PreviewWidth;
         var pointer = sectionRoot.AbsoluteToLocalPosition(previewPointerX, previewPointerY);
-        var maxX = Math.Max(PreviewMargin, sectionWidth - PreviewWidth - PreviewMargin);
-        var maxY = Math.Max(PreviewMargin, sectionHeight - PreviewHeight - PreviewMargin);
         previewGhost
-            .Position(Math.Clamp(pointer.X + PreviewOffsetX, PreviewMargin, maxX), Math.Clamp(pointer.Y + PreviewOffsetY, PreviewMargin, maxY))
+            .Width(width)
+            .Height(RowBodyHeight)
+            .Position(Math.Clamp(pointer.X + PreviewOffsetX, PreviewMargin, Math.Max(PreviewMargin, width)), Math.Max(PreviewMargin, pointer.Y + PreviewOffsetY))
             .Visibility(Visibility.Normal)
-            .Opacity(0.96f);
+            .Opacity(0.85f);
     }
-
-    private static float FallbackExtent(float viewport, float preview) => viewport > 0.0f ? viewport : preview + (PreviewMargin * 2.0f);
 
     private void ApplyTheme()
     {
@@ -370,15 +365,10 @@ internal sealed class ReorderDemoSection : IDisposable
         orderStatusText.TextColor(colors.TextPrimary);
         dragStatusText.TextColor(colors.TextMuted);
         viewportStatusText.TextColor(colors.TextMuted);
-        var accepting = previewEffect == DragDropEffects.Move;
-        previewGhost
-            .Background(colors.Surface)
-            .Border(1.0f, accepting ? colors.Accent : colors.Border)
-            .DropShadow(theme.ToolTip.PanelShadowColor, 0.0f, theme.ToolTip.ShadowOffsetY, theme.ToolTip.ShadowBlur, theme.ToolTip.ShadowSpread);
-        previewCaptionText.TextColor(colors.TextMuted);
+        previewGhost.Background(colors.Surface).Border(1.0f, colors.Accent);
+        previewGripText.TextColor(colors.TextPrimary);
         previewTitleText.TextColor(colors.TextPrimary);
         previewDetailText.TextColor(colors.TextMuted);
-        previewEffectText.TextColor(accepting ? colors.Accent : colors.TextPrimary);
     }
 
     private ReorderVisibleRange VisibleRange() =>
@@ -396,7 +386,6 @@ internal sealed class ReorderDemoSection : IDisposable
         {
             row.Card.Height(height);
         }
-        scrollBox.ScrollContentSize(null, ReorderDemoLogic.ContentHeight(items.Count, height));
         SyncViewportStatus();
     }
 

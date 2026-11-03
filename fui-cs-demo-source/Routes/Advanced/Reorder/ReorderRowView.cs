@@ -7,10 +7,13 @@ namespace FuiCsDemo.Advanced.Reorder;
 
 /// <summary>
 /// One slot of the reorder list: an insertion marker above a card with a drag grip. The slot is the drop target for
-/// its index; the grip, and the label on it that receives the pointer, start a drag of the item the slot shows.
+/// its index; the grip, and the glyph on it that receives the pointer, start a drag of the item the slot shows. While
+/// its item is dragged the slot collapses, and the section's drag preview stands in for the card.
 /// </summary>
 internal sealed class ReorderRowView
 {
+    private const string GripGlyph = "☰";
+
     private readonly ReorderDemoSection section;
     private ReorderDemoItem? currentItem;
     private string? pendingDragItemId;
@@ -24,39 +27,21 @@ internal sealed class ReorderRowView
             .Height(ReorderDemoLogic.MarkerHeight)
             .CornerRadius(ReorderDemoLogic.MarkerHeight * 0.5f)
             .Opacity(0.0f);
-        GripLabel = new Text("Drag")
-            .FontSize(14.0f)
-            .Selectable(false)
+        GripLabel = CreateGripLabel()
             .Cursor(CursorStyle.Grab)
             .DragData(ProvideDragData)
             .DragAllowedEffects(DragDropEffects.Move)
             .OnDragCompleted(e => HandleDragCompleted(e.Effect));
-        Grip = new FlexBox()
-            .Width(76.0f)
-            .Height(40.0f)
-            .CornerRadius(12.0f)
-            .JustifyContent(JustifyContent.Center)
-            .AlignItems(AlignItems.Center)
-            .Child(GripLabel)
+        Grip = CreateGrip(GripLabel)
             .Cursor(CursorStyle.Grab)
             .SemanticRole(SemanticRole.Button)
             .SemanticLabel("Drag grip")
             .DragData(ProvideDragData)
             .DragAllowedEffects(DragDropEffects.Move)
             .OnDragCompleted(e => HandleDragCompleted(e.Effect));
-        TitleText = new Text("").FontSize(16.0f);
-        DetailText = new Text("").FontSize(14.0f).MaxLines(2).Overflow(TextOverflow.Ellipsis);
-        Card = new FlexBox()
-            .FillWidth()
-            .Height(section.RowBodyHeight)
-            .Padding(16.0f, 14.0f, 16.0f, 14.0f)
-            .CornerRadius(18.0f)
-            .JustifyContent(JustifyContent.Center)
-            .Child(FlexBox.Row(
-                    Grip,
-                    new FlexBox().Width(14.0f).Height(1.0f),
-                    FlexBox.Column(TitleText, new FlexBox().FillWidth().Height(4.0f), DetailText).FillWidth())
-                .FillWidth());
+        TitleText = new DemoText("", DemoTextStyle.Body);
+        DetailText = new DemoText("", DemoTextStyle.Caption).MaxLines(2).Overflow(TextOverflow.Ellipsis);
+        Card = CreateCard(section.RowBodyHeight, Grip, TitleText, DetailText);
         // Clipped at the card's border, so text a narrow screen wraps onto more lines stays inside the card.
         Slot = FlexBox.Column(Marker, Card)
             .FillWidth()
@@ -84,6 +69,30 @@ internal sealed class ReorderRowView
 
     public FlexBox Slot { get; }
 
+    /// <summary>The grip's glyph; the drag preview shows one too, so it is not selectable.</summary>
+    internal static Text CreateGripLabel() => new DemoText(GripGlyph, DemoTextStyle.Body).Selectable(false);
+
+    /// <summary>The box that centers the grip's glyph at the card's leading edge.</summary>
+    internal static FlexBox CreateGrip(Text label) => new FlexBox()
+        .Width(36.0f)
+        .Height(40.0f)
+        .JustifyContent(JustifyContent.Center)
+        .AlignItems(AlignItems.Center)
+        .Child(label);
+
+    /// <summary>A card of <paramref name="height"/>: the grip, then the title over the detail.</summary>
+    internal static FlexBox CreateCard(float height, FlexBox grip, Text title, Text detail) => new FlexBox()
+        .FillWidth()
+        .Height(height)
+        .Padding(16.0f, 14.0f, 16.0f, 14.0f)
+        .CornerRadius(18.0f)
+        .JustifyContent(JustifyContent.Center)
+        .Child(FlexBox.Row(
+                grip,
+                new FlexBox().Width(8.0f).Height(1.0f),
+                FlexBox.Column(title, new FlexBox().FillWidth().Height(4.0f), detail).FillWidth())
+            .FillWidth());
+
     public void BindItem(ReorderDemoItem item)
     {
         currentItem = item;
@@ -98,12 +107,10 @@ internal sealed class ReorderRowView
     {
         var colors = theme.Colors;
         var isSource = currentItem is not null && currentItem.Id == activeSourceId;
-        Marker.Background(colors.Accent).Opacity(rawInsertionIndex == RawIndex ? 1.0f : 0.0f);
-        if (isSource)
-        {
-            Card.Background(colors.AccentHovered);
-        }
-        else
+        var visibility = isSource ? Visibility.Collapsed : Visibility.Normal;
+        Marker.Background(colors.Accent).Opacity(rawInsertionIndex == RawIndex ? 1.0f : 0.0f).Visibility(visibility);
+        Card.Visibility(visibility);
+        if (!isSource)
         {
             ColorUtils.ApplyRowBackground(Card, RawIndex, theme);
         }
@@ -111,9 +118,7 @@ internal sealed class ReorderRowView
         TitleText.TextColor(isSource ? colors.Surface : colors.TextPrimary);
         DetailText.TextColor(isSource ? colors.Surface : colors.TextMuted);
         var cursor = isSource ? CursorStyle.Grabbing : CursorStyle.Grab;
-        Grip.Background(isSource ? colors.Accent : colors.Surface)
-            .Border(1.0f, isSource ? colors.AccentPressed : colors.Border)
-            .Cursor(cursor);
+        Grip.Cursor(cursor);
         GripLabel.TextColor(isSource ? colors.Surface : colors.TextPrimary).Cursor(cursor);
     }
 
